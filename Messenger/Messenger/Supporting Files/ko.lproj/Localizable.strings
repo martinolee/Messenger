@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Messenger
+
+  Created by Soohan Lee on 2020/05/16.
+  Copyright © 2020 Soohan Lee. All rights reserved.
+*/
+
+"Welcome" = "Welcome!";
+"Email or phone number" = "이메일 또는 전화번호";
+"Password" = "비밀번호";
+"Log In" = "로그인";
+"Sign Up" = "회원가입";
+"Find Account or Password" = "계정 또는 비밀번호 찾기";
