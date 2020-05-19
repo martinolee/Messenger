@@ -11,7 +11,7 @@ import FirebaseAuth
 
 final class LoginViewReactor: Reactor {
   enum Action {
-    case updateUsername(String?)
+    case updateEmail(String?)
     
     case updatePassword(String?)
     
@@ -19,41 +19,35 @@ final class LoginViewReactor: Reactor {
   }
   
   enum Mutation {
-    case setUsername(String)
+    case setEmail(String)
     
     case setPassword(String)
     
-    case setLoginState
+    case setLoggingIn(Bool)
+    
+    case setLoggedin(Result<AuthDataResult, LoginError>)
   }
   
   struct State {
-    var username: String?
+    var loginForm: LoginForm
     
-    var password: String?
+    var isLoggingIn: Bool
     
-    var isLoggedin: Bool {
-      didSet {
-        print("didSet", isLoggedin)
-      }
-    }
-    
-    var isLoginAvailable: Bool
-    
-    var isLoading: Bool
+    var loginResult: Result<AuthDataResult, LoginError>?
   }
   
   let initialState: State
   
   init() {
-    self.initialState = State(isLoggedin: false, isLoginAvailable: false, isLoading: false)
+    self.initialState = State(loginForm: LoginForm(), isLoggingIn: false)
   }
   
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .updateUsername(let username):
-      guard let username = username else { return .empty() }
+    case .updateEmail(let email):
+      guard let email = email else { return .empty() }
       
-      return Observable.just(.setUsername(username))
+      return Observable.just(.setEmail(email))
       
     case .updatePassword(let password):
       guard let password = password else { return .empty() }
@@ -61,7 +55,16 @@ final class LoginViewReactor: Reactor {
       return Observable.just(.setPassword(password))
       
     case .logIn:
-      return Observable.just(.setLoginState)
+      guard !currentState.isLoggingIn && currentState.loginForm.hasValidForm else { return .empty() }
+      
+      return Observable.concat([
+        Observable.just(.setLoggingIn(true)),
+        
+        UserAccountManager.shared.logIn(currentState.loginForm)
+          .map { Mutation.setLoggedin($0) },
+        
+        Observable.just(.setLoggingIn(false)),
+      ])
     }
   }
   
@@ -69,26 +72,18 @@ final class LoginViewReactor: Reactor {
     var state = state
     
     switch mutation {
-    case .setUsername(let username):
-      state.username = username
+    case .setEmail(let email):
+      state.loginForm.email = email
       
     case .setPassword(let password):
-      state.password = password
-      
-    case .setLoginState:
-      guard let username = state.username, let password = state.password else { return state }
-      
-      Auth.auth().signIn(withEmail: username, password: password) { result, error in
-        guard error == nil else { return print(error!.localizedDescription) }
-        guard let result = result else { return }
-        
-        state.isLoggedin = true
-      }
-    }
+      state.loginForm.password = password
     
-    !(state.username?.isEmpty ?? true) && state.password?.count ?? 0 >= 4
-      ? (state.isLoginAvailable = true)
-      : (state.isLoginAvailable = false)
+    case .setLoggingIn(let isLoggingIn):
+      state.isLoggingIn = isLoggingIn
+      
+    case .setLoggedin(let result):
+      state.loginResult = result
+    }
     
     return state
   }

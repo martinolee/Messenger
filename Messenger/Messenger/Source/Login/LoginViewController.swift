@@ -21,6 +21,7 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
     super.viewDidLoad()
     
     setUpRootView()
+    self.hideKeyboardWhenTappedAround()
   }
   
   // MARK: - Setup
@@ -35,13 +36,28 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
   func bind(reactor: LoginViewReactor) {
     // MARK: - Action
     
-    loginView.idTextField.rx.text.changed
-      .map { Reactor.Action.updateUsername($0) }
+    loginView.emailTextField.rx.text.changed
+      .distinctUntilChanged()
+      .map { Reactor.Action.updateEmail($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
-    loginView.pwTextField.rx.text.changed
+    loginView.emailTextField.rx.controlEvent(.primaryActionTriggered)
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        
+        self.loginView.passwordTextField.becomeFirstResponder()
+      })
+      .disposed(by: disposeBag)
+    
+    loginView.passwordTextField.rx.text.changed
+      .distinctUntilChanged()
       .map { Reactor.Action.updatePassword($0) }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    loginView.passwordTextField.rx.controlEvent(.primaryActionTriggered)
+      .map { Reactor.Action.logIn }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
@@ -53,7 +69,7 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
     loginView.signupButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let signupViewController = SignupViewController()
+        let signupViewController = UINavigationController(rootViewController: SignupViewController())
         
         self.present(signupViewController, animated: true)
       })
@@ -61,22 +77,34 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
     
     // MARK: - State
     
-    reactor.state.map { $0.isLoginAvailable }
-      .subscribe(onNext: { [weak self] isLoginAvailable in
-        guard let self = self else { return }
-        
-        isLoginAvailable
-          ? (self.loginView.loginButton.isEnabled = true)
-          : (self.loginView.loginButton.isEnabled = false)
-      })
+    reactor.state.map { !$0.isLoggingIn }
+      .distinctUntilChanged()
+      .bind(to: loginView.dimView.rx.isHidden)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.isLoggedin }
-      .subscribe(onNext: { [weak self] isLoggedin in
-        guard let self = self else { return }
+    reactor.state.map { $0.isLoggingIn }
+      .distinctUntilChanged()
+      .bind(to: loginView.activityIndicatorView.rx.isAnimating)
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.loginForm.hasValidForm }
+      .distinctUntilChanged()
+      .bind(to: loginView.loginButton.rx.isEnabled)
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.loginResult }
+      .filterNil()
+      .subscribe(onNext: { [weak self] result in
+        guard self != nil else { return }
         
-        if isLoggedin {
-          print(self)
+        switch result {
+        case .success(let result):
+          guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return }
+          
+          window.rootViewController = MainTabBarController()
+          
+        case .failure(let error):
+          print(error.localizedDescription)
         }
       })
       .disposed(by: disposeBag)

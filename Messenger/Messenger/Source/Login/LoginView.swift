@@ -11,30 +11,42 @@ import UIKit
 final class LoginView: UIView, ViewSetup {
   // MARK: - Properties
   
-  let activityIndicatorView = UIActivityIndicatorView(style: .large)
-  
   let dimView = UIView().then {
     $0.isHidden = true
     $0.backgroundColor = UIColor.black.withAlphaComponent(0.5)
   }
   
-  let welcomeLabel = UILabel().then {
-    $0.textAlignment = .center
-    $0.text = "Welcome".localized
+  let activityIndicatorView = UIActivityIndicatorView().then {
+    $0.hidesWhenStopped = true
+    $0.style = .large
+    $0.color = .white
   }
   
-  let idTextField = UITextField().then {
+  let emailTextField = UITextField().then {
+    $0.autocorrectionType = .no
     $0.autocapitalizationType = .none
-    $0.placeholder = "Email or phone number".localized
+    $0.keyboardType = .emailAddress
+    $0.placeholder = "Email".localized
   }
   
-  let pwTextField = UITextField().then {
+  let passwordTextField = UITextField().then {
     $0.isSecureTextEntry = true
     $0.placeholder = "Password".localized
   }
   
   let loginButton = UIButton(type: .system).then {
+    $0.clipsToBounds = true
+    $0.layer.cornerRadius = 6
+    
+    $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
+    
     $0.setTitle("Log In".localized, for: .normal)
+    
+    $0.setTitleColor(.white, for: .normal)
+    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+    
+    $0.setBackgroundColor(.systemOrange, for: .normal)
+    $0.setBackgroundColor(.lightGray, for: .disabled)
   }
   
   let signupButton = UIButton(type: .system).then {
@@ -67,9 +79,8 @@ final class LoginView: UIView, ViewSetup {
   
   func addAllSubviews() {
     self.addSubviews([
-      welcomeLabel,
-      idTextField,
-      pwTextField,
+      emailTextField,
+      passwordTextField,
       loginButton,
       signupButton,
       findAccountOrPasswordButton,
@@ -82,29 +93,31 @@ final class LoginView: UIView, ViewSetup {
   func setUpLayout() {
     let safeArea = safeAreaLayoutGuide
     
-    welcomeLabel.snp.makeConstraints {
-      $0.top.equalTo(safeArea).inset(60)
-      $0.leading.trailing.equalTo(safeArea).inset(8)
+    dimView.snp.makeConstraints { $0.edges.equalToSuperview() }
+    
+    activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
+    
+    emailTextField.snp.makeConstraints {
+      $0.top.equalTo(safeArea).offset(16)
+      $0.leading.trailing.equalTo(safeArea).inset(16)
+      $0.height.equalTo(50)
     }
     
-    idTextField.snp.makeConstraints {
-      $0.top.equalTo(welcomeLabel.snp.bottom).offset(60)
-      $0.leading.trailing.equalTo(welcomeLabel)
-    }
-    
-    pwTextField.snp.makeConstraints {
-      $0.top.equalTo(idTextField.snp.bottom).offset(8)
-      $0.leading.trailing.equalTo(welcomeLabel)
+    passwordTextField.snp.makeConstraints {
+      $0.top.equalTo(emailTextField.snp.bottom).offset(8)
+      $0.leading.trailing.equalTo(emailTextField)
+      $0.height.equalTo(50)
     }
     
     loginButton.snp.makeConstraints {
-      $0.top.equalTo(pwTextField.snp.bottom).offset(16)
-      $0.leading.trailing.equalTo(welcomeLabel)
+      $0.top.equalTo(passwordTextField.snp.bottom).offset(16)
+      $0.leading.trailing.equalTo(emailTextField)
+      $0.height.equalTo(50)
     }
     
     signupButton.snp.makeConstraints {
       $0.top.equalTo(loginButton.snp.bottom).offset(8)
-      $0.leading.trailing.equalTo(welcomeLabel)
+      $0.leading.trailing.equalTo(emailTextField)
     }
     
     dimView.snp.makeConstraints { $0.edges.equalToSuperview() }
