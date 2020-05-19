@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseAuth
 
-class SignupViewReactor: Reactor {
+final class SignupViewReactor: Reactor {
   enum Action {
     case updateName(String)
     
@@ -82,7 +82,7 @@ class SignupViewReactor: Reactor {
       ])
       
     case .signUp:
-      guard !currentState.isCreatingUser else { return .empty() }
+      guard !currentState.isCreatingUser && currentState.isSignupAvailable else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setCreatingUser(true)),

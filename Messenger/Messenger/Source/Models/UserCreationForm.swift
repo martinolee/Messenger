@@ -12,7 +12,9 @@ public struct UserCreationForm {
   var name: String?
   var email: String?
   var password: String?
-  
+}
+
+extension UserCreationForm {
   var isFullyFormed: Bool {
     isNameEntered && isEmailEntered && isPasswordEntered && hasValidEmail && hasValidPassword
   }

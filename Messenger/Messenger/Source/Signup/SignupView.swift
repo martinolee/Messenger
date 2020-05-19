@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupView: UIView, ViewSetup {
+final class SignupView: UIView, ViewSetup {
   // MARK: - Properties
   
   let dimView = UIView().then {
@@ -32,9 +32,10 @@ class SignupView: UIView, ViewSetup {
     $0.placeholder = "Name".localized
   }
   
-  let usernameTextField = UITextField().then {
+  let emailTextField = UITextField().then {
     $0.autocorrectionType = .no
     $0.autocapitalizationType = .none
+    $0.keyboardType = .emailAddress
     $0.placeholder = "Email".localized
   }
   
@@ -44,7 +45,18 @@ class SignupView: UIView, ViewSetup {
   }
   
   let signupButton = UIButton(type: .system).then {
+    $0.clipsToBounds = true
+    $0.layer.cornerRadius = 6
+    
+    $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
+    
     $0.setTitle("Sign Up".localized, for: .normal)
+    
+    $0.setTitleColor(.white, for: .normal)
+    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+    
+    $0.setBackgroundColor(.systemOrange, for: .normal)
+    $0.setBackgroundColor(.lightGray, for: .disabled)
   }
   
   // MARK: - Life Cycle
@@ -70,7 +82,7 @@ class SignupView: UIView, ViewSetup {
   func addAllSubviews() {
     self.addSubviews([
       nameTextField,
-      usernameTextField,
+      emailTextField,
       passwordTextField,
       signupButton,
       dimView,
@@ -87,23 +99,27 @@ class SignupView: UIView, ViewSetup {
     activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
     
     nameTextField.snp.makeConstraints {
-      $0.top.equalTo(safeArea).inset(60)
+      $0.top.equalTo(safeArea).inset(16)
       $0.leading.trailing.equalToSuperview().inset(16)
+      $0.height.equalTo(50)
     }
     
-    usernameTextField.snp.makeConstraints {
+    emailTextField.snp.makeConstraints {
       $0.top.equalTo(nameTextField.snp.bottom).offset(8)
       $0.leading.trailing.equalTo(nameTextField)
+      $0.height.equalTo(50)
     }
     
     passwordTextField.snp.makeConstraints {
-      $0.top.equalTo(usernameTextField.snp.bottom).offset(8)
+      $0.top.equalTo(emailTextField.snp.bottom).offset(8)
       $0.leading.trailing.equalTo(nameTextField)
+      $0.height.equalTo(50)
     }
     
     signupButton.snp.makeConstraints {
-      $0.top.equalTo(passwordTextField).offset(18)
+      $0.top.equalTo(passwordTextField.snp.bottom).offset(18)
       $0.leading.trailing.equalTo(nameTextField)
+      $0.height.equalTo(50)
     }
   }
 }

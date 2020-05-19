@@ -12,7 +12,11 @@ import FirebaseAuth
 final public class UserAccountManager {
   public static let shared = UserAccountManager()
   
-  public func creatUser(_ userCreationForm: UserCreationForm) -> Observable<Result<AuthDataResult,UserCreationError>> {
+  public var isUserLoggedIn: Bool {
+    Auth.auth().currentUser != nil
+  }
+  
+  public func creatUser(_ userCreationForm: UserCreationForm) -> Observable<Result<AuthDataResult, UserCreationError>> {
     guard
       let name = userCreationForm.name,
       let email = userCreationForm.email,
@@ -28,12 +32,28 @@ final public class UserAccountManager {
         
         userUpdateRequest.displayName = name
         userUpdateRequest.commitChanges { error in
-          guard error == nil else { return observer.onError(error!) }
+          guard error == nil else { return observer.onNext(.failure(.firebaseError(error!))) }
           
           observer.onNext(.success(result))
           observer.onCompleted()
           return
         }
+      }
+      return Disposables.create()
+    }
+  }
+  
+  public func logIn(_ loginForm: LoginForm) -> Observable<Result<AuthDataResult, LoginError>> {
+    guard let email = loginForm.email, let password = loginForm.password else { return Observable.just(.failure(.missingInfo)) }
+    
+    return Observable.create { observer in
+      Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        guard error == nil else { return observer.onNext(.failure(.firebaseError(error!))) }
+        guard let result = result else { return observer.onNext(.failure(.noResult)) }
+        
+        observer.onNext(.success(result))
+        observer.onCompleted()
+        return
       }
       return Disposables.create()
     }

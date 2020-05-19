@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupViewController: UIViewController, View, ViewControllerSetup {
+final class SignupViewController: UIViewController, View, ViewControllerSetup {
   // MARK: - Properties
   
   var disposeBag = DisposeBag()
@@ -22,6 +22,7 @@ class SignupViewController: UIViewController, View, ViewControllerSetup {
     
     setUpRootView()
     setUpNavigation()
+    self.hideKeyboardWhenTappedAround()
   }
   
   // MARK: - Setup
@@ -56,17 +57,38 @@ class SignupViewController: UIViewController, View, ViewControllerSetup {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
-    signupView.usernameTextField.rx.text.changed
+    signupView.nameTextField.rx.controlEvent(.primaryActionTriggered)
+    .subscribe(onNext: { [weak self] in
+      guard let self = self else { return }
+      
+      self.signupView.emailTextField.becomeFirstResponder()
+    })
+    .disposed(by: disposeBag)
+    
+    signupView.emailTextField.rx.text.changed
       .distinctUntilChanged()
       .filterNil()
       .map { Reactor.Action.updateEmail($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
+    signupView.emailTextField.rx.controlEvent(.primaryActionTriggered)
+      .subscribe(onNext: { [weak self] in
+        guard let self = self else { return }
+        
+        self.signupView.passwordTextField.becomeFirstResponder()
+      })
+      .disposed(by: disposeBag)
+    
     signupView.passwordTextField.rx.text.changed
       .distinctUntilChanged()
       .filterNil()
       .map { Reactor.Action.updatePassword($0) }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    signupView.passwordTextField.rx.controlEvent(.primaryActionTriggered)
+      .map { Reactor.Action.signUp }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
