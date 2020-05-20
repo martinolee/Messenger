@@ -27,29 +27,24 @@ final class SignupViewReactor: Reactor {
     
     case setPassword(String)
     
-    case setSignupAvailable
-    
     case setCreatingUser(Bool)
     
-    case setUserCreationResult(Result<AuthDataResult,UserCreationError>)
+    case setSignupResult(Result<AuthDataResult, SignupError>)
   }
   
   struct State {
-    var userCreationForm: UserCreationForm
-    
-    var isSignupAvailable: Bool
+    var signupForm: SignupForm
     
     var isCreatingUser: Bool
     
-    var userCreationResult: Result<AuthDataResult,UserCreationError>?
+    var signupResult: Result<AuthDataResult, SignupError>?
   }
   
   let initialState: State
   
   init() {
     self.initialState = State(
-      userCreationForm: UserCreationForm(),
-      isSignupAvailable: false,
+      signupForm: SignupForm(),
       isCreatingUser: false
     )
   }
@@ -59,36 +54,24 @@ final class SignupViewReactor: Reactor {
     case .updateName(let name):
       let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
       
-      return Observable.concat([
-        Observable.just(.setName(trimmedName)),
-        
-        Observable.just(.setSignupAvailable),
-      ])
+      return Observable.just(.setName(trimmedName))
       
     case .updateEmail(let email):
       let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
       
-      return Observable.concat([
-        Observable.just(.setEmail(trimmedEmail)),
-        
-        Observable.just(.setSignupAvailable),
-      ])
+      return Observable.just(.setEmail(trimmedEmail))
       
     case .updatePassword(let password):
-      return Observable.concat([
-        Observable.just(.setPassword(password)),
-        
-        Observable.just(.setSignupAvailable),
-      ])
+      return Observable.just(.setPassword(password))
       
     case .signUp:
-      guard !currentState.isCreatingUser && currentState.isSignupAvailable else { return .empty() }
+      guard !currentState.isCreatingUser && currentState.signupForm.isFullyFormed else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setCreatingUser(true)),
         
-        UserAccountManager.shared.creatUser(currentState.userCreationForm)
-          .map { Mutation.setUserCreationResult($0) },
+        UserAccountManager.shared.signUp(currentState.signupForm)
+          .map { Mutation.setSignupResult($0) },
         
         Observable.just(.setCreatingUser(false)),
       ])
@@ -100,22 +83,23 @@ final class SignupViewReactor: Reactor {
     
     switch mutation {
     case .setName(let name):
-      state.userCreationForm.name = name
+      state.signupForm.name = name
+      state.signupResult = nil
       
     case .setEmail(let email):
-      state.userCreationForm.email = email
+      state.signupForm.email = email
+      state.signupResult = nil
       
     case .setPassword(let password):
-      state.userCreationForm.password = password
-      
-    case .setSignupAvailable:
-      state.isSignupAvailable = state.userCreationForm.isFullyFormed
+      state.signupForm.password = password
+      state.signupResult = nil
       
     case .setCreatingUser(let isCreatingUser):
       state.isCreatingUser = isCreatingUser
+      state.signupResult = nil
       
-    case .setUserCreationResult(let result):
-      state.userCreationResult = result
+    case .setSignupResult(let result):
+      state.signupResult = result
     }
     
     return state

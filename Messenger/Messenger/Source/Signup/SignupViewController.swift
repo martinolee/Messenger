@@ -99,7 +99,7 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
     
     // MARK: - State
     
-    reactor.state.map { $0.isSignupAvailable }
+    reactor.state.map { $0.signupForm.isFullyFormed }
       .distinctUntilChanged()
       .bind(to: signupView.signupButton.rx.isEnabled)
       .disposed(by: disposeBag)
@@ -114,7 +114,7 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
       .bind(to: signupView.activityIndicatorView.rx.isAnimating)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.userCreationResult }
+    reactor.state.map { $0.signupResult }
       .filterNil()
       .subscribe(onNext: { [weak self] result in
         guard let self = self else { return }

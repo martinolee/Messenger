@@ -1,5 +1,5 @@
 //
-//  UserCreationForm.swift
+//  SignupForm.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/18.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct UserCreationForm {
+public struct SignupForm {
   var name: String?
   var email: String?
   var password: String?
 }
 
-extension UserCreationForm {
+extension SignupForm {
   var isFullyFormed: Bool {
     isNameEntered && isEmailEntered && isPasswordEntered && hasValidEmail && hasValidPassword
   }

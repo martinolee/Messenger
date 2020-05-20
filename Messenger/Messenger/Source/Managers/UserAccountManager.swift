@@ -1,5 +1,5 @@
 //
-//  UserCreationManager.swift
+//  UserAccountManager.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/18.
@@ -16,25 +16,36 @@ final public class UserAccountManager {
     Auth.auth().currentUser != nil
   }
   
-  public func creatUser(_ userCreationForm: UserCreationForm) -> Observable<Result<AuthDataResult, UserCreationError>> {
+  public func signUp(_ signupForm: SignupForm) -> Observable<Result<AuthDataResult, SignupError>> {
     guard
-      let name = userCreationForm.name,
-      let email = userCreationForm.email,
-      let password = userCreationForm.password
+      let name = signupForm.name,
+      let email = signupForm.email,
+      let password = signupForm.password
     else { return .empty() }
     
     return Observable.create { observer in
       Auth.auth().createUser(withEmail: email, password: password) { result, error in
-        guard error == nil else { return observer.onNext(.failure(.firebaseError(error!))) }
-        guard let result = result else { return observer.onNext(.failure(.noResult)) }
+        guard error == nil else {
+          observer.onNext(.failure(.firebaseError(error!)))
+          observer.onCompleted()
+          return
+        }
+        guard let result = result else {
+          observer.onNext(.failure(.noResult))
+          observer.onCompleted()
+          return
+        }
         
         let userUpdateRequest = result.user.createProfileChangeRequest()
         
         userUpdateRequest.displayName = name
         userUpdateRequest.commitChanges { error in
-          guard error == nil else { return observer.onNext(.failure(.firebaseError(error!))) }
+          if let error = error {
+            observer.onNext(.failure(.firebaseError(error)))
+          } else {
+            observer.onNext(.success(result))
+          }
           
-          observer.onNext(.success(result))
           observer.onCompleted()
           return
         }
@@ -48,10 +59,12 @@ final public class UserAccountManager {
     
     return Observable.create { observer in
       Auth.auth().signIn(withEmail: email, password: password) { result, error in
-        guard error == nil else { return observer.onNext(.failure(.firebaseError(error!))) }
-        guard let result = result else { return observer.onNext(.failure(.noResult)) }
+        if let error = error {
+          observer.onNext(.failure(.firebaseError(error)))
+        } else if let result = result {
+          observer.onNext(.success(result))
+        }
         
-        observer.onNext(.success(result))
         observer.onCompleted()
         return
       }

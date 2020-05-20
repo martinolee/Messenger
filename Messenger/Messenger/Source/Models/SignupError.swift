@@ -1,5 +1,5 @@
 //
-//  AccountError.swift
+//  SignupError.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum UserCreationError: Error {
+public enum SignupError: Error {
   case emptyForm
   case noResult
   case firebaseError(Error)

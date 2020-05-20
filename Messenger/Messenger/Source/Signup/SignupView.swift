@@ -20,10 +20,12 @@ final class SignupView: UIView, ViewSetup {
   let activityIndicatorView = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
     $0.style = .large
+    $0.color = .systemOrange
   }
   
   let cancelButton = UIButton(type: .system).then {
     $0.setImage(UIImage(systemName: "xmark"), for: .normal)
+    $0.tintColor = .systemOrange
   }
   
   let nameTextField = UITextField().then {
