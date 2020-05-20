@@ -19,7 +19,7 @@ final class LoginView: UIView, ViewSetup {
   let activityIndicatorView = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
     $0.style = .large
-    $0.color = .white
+    $0.color = .systemOrange
   }
   
   let emailTextField = UITextField().then {
@@ -51,6 +51,7 @@ final class LoginView: UIView, ViewSetup {
   
   let signupButton = UIButton(type: .system).then {
     $0.setTitle("Sign Up".localized, for: .normal)
+    $0.setTitleColor(.systemOrange, for: .normal)
   }
   
   let findAccountOrPasswordButton = UIButton(type: .system).then {

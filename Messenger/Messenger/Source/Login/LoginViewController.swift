@@ -95,15 +95,23 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
     reactor.state.map { $0.loginResult }
       .filterNil()
       .subscribe(onNext: { [weak self] result in
-        guard self != nil else { return }
+        guard let self = self else { return }
         
         switch result {
-        case .success(let result):
-          guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return }
+        case .success:
+          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
           
-          window.rootViewController = MainTabBarController()
+          appDelegate.setUpRootViewControllerForUserLoginCondition()
           
         case .failure(let error):
+          let signupErrorAlert = UIAlertController(
+            title: "Log In Error".localized,
+            message: error.localizedDescription.localized,
+            preferredStyle: .alert
+          )
+          signupErrorAlert.addAction(UIAlertAction(title: "Confirm".localized, style: .default))
+          
+          self.present(signupErrorAlert, animated: true)
           print(error.localizedDescription)
         }
       })

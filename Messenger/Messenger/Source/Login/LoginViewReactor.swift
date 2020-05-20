@@ -25,7 +25,7 @@ final class LoginViewReactor: Reactor {
     
     case setLoggingIn(Bool)
     
-    case setLoggedin(Result<AuthDataResult, LoginError>)
+    case setLoginResult(Result<AuthDataResult, LoginError>)
   }
   
   struct State {
@@ -61,7 +61,7 @@ final class LoginViewReactor: Reactor {
         Observable.just(.setLoggingIn(true)),
         
         UserAccountManager.shared.logIn(currentState.loginForm)
-          .map { Mutation.setLoggedin($0) },
+          .map { Mutation.setLoginResult($0) },
         
         Observable.just(.setLoggingIn(false)),
       ])
@@ -74,14 +74,17 @@ final class LoginViewReactor: Reactor {
     switch mutation {
     case .setEmail(let email):
       state.loginForm.email = email
+      state.loginResult = nil
       
     case .setPassword(let password):
       state.loginForm.password = password
+      state.loginResult = nil
     
     case .setLoggingIn(let isLoggingIn):
       state.isLoggingIn = isLoggingIn
+      state.loginResult = nil
       
-    case .setLoggedin(let result):
+    case .setLoginResult(let result):
       state.loginResult = result
     }
     
