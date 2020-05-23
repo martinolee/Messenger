@@ -20,12 +20,15 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setUpAttribute()
     setUpRootView()
     setUpNavigation()
-    self.hideKeyboardWhenTappedAround()
   }
   
   // MARK: - Setup
+  
+  func setUpAttribute() {
+  }
   
   func setUpRootView() {
     self.reactor = SignupViewReactor()
@@ -51,8 +54,8 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
       .disposed(by: disposeBag)
     
     signupView.nameTextField.rx.text.changed
-      .distinctUntilChanged()
       .filterNil()
+      .distinctUntilChanged()
       .map { Reactor.Action.updateName($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
@@ -66,8 +69,8 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
     .disposed(by: disposeBag)
     
     signupView.emailTextField.rx.text.changed
-      .distinctUntilChanged()
       .filterNil()
+      .distinctUntilChanged()
       .map { Reactor.Action.updateEmail($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
@@ -81,8 +84,8 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
       .disposed(by: disposeBag)
     
     signupView.passwordTextField.rx.text.changed
-      .distinctUntilChanged()
       .filterNil()
+      .distinctUntilChanged()
       .map { Reactor.Action.updatePassword($0) }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
@@ -116,25 +119,32 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
     
     reactor.state.map { $0.signupResult }
       .filterNil()
+      .distinctUntilChanged()
       .subscribe(onNext: { [weak self] result in
         guard let self = self else { return }
         
-        switch result {
-        case .success:
-          self.dismiss(animated: true)
-          
-        case .failure(let error):
-          let signupErrorAlert = UIAlertController(
-            title: "Sign Up Error".localized,
-            message: error.localizedDescription.localized,
-            preferredStyle: .alert
-          )
-          signupErrorAlert.addAction(UIAlertAction(title: "Confirm".localized, style: .default))
-          
-          self.present(signupErrorAlert, animated: true)
-        }
+        self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.signupError }
+      .filterNil()
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] error in
+        guard let self = self else { return }
+        let error = error.error
+        
+        let signupErrorAlert = UIAlertController(
+          title: "Sign Up Error".localized,
+          message: error.localizedDescription.localized,
+          preferredStyle: .alert
+        )
+        signupErrorAlert.addAction(UIAlertAction(title: "Confirm".localized, style: .default))
+        
+        self.present(signupErrorAlert, animated: true)
+      })
+      .disposed(by: disposeBag)
+
   }
 }
 

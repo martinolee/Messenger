@@ -20,11 +20,14 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setUpAttribute()
     setUpRootView()
-    self.hideKeyboardWhenTappedAround()
   }
   
   // MARK: - Setup
+  
+  func setUpAttribute() {
+  }
   
   func setUpRootView() {
     self.reactor = LoginViewReactor()
@@ -94,26 +97,31 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
     
     reactor.state.map { $0.loginResult }
       .filterNil()
+      .distinctUntilChanged()
       .subscribe(onNext: { [weak self] result in
-        guard let self = self else { return }
+        guard self != nil else { return }
         
-        switch result {
-        case .success:
-          guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-          
-          appDelegate.setUpRootViewControllerForUserLoginCondition()
-          
-        case .failure(let error):
-          let signupErrorAlert = UIAlertController(
-            title: "Log In Error".localized,
-            message: error.localizedDescription.localized,
-            preferredStyle: .alert
-          )
-          signupErrorAlert.addAction(UIAlertAction(title: "Confirm".localized, style: .default))
-          
-          self.present(signupErrorAlert, animated: true)
-          print(error.localizedDescription)
-        }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        appDelegate.setUpRootViewControllerForUserLoginCondition()
+        })
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.loginError }
+      .filterNil()
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] error in
+        guard let self = self else { return }
+        let error = error.error
+        
+        let signupErrorAlert = UIAlertController(
+          title: "Log In Error".localized,
+          message: error.localizedDescription.localized,
+          preferredStyle: .alert
+        )
+        signupErrorAlert.addAction(UIAlertAction(title: "Confirm".localized, style: .default))
+        
+        self.present(signupErrorAlert, animated: true)
       })
       .disposed(by: disposeBag)
   }

@@ -29,7 +29,9 @@ final class SignupViewReactor: Reactor {
     
     case setCreatingUser(Bool)
     
-    case setSignupResult(Result<AuthDataResult, SignupError>)
+    case setSignupResult(AuthDataResult)
+    
+    case setSignupError(Error)
   }
   
   struct State {
@@ -37,7 +39,9 @@ final class SignupViewReactor: Reactor {
     
     var isCreatingUser: Bool
     
-    var signupResult: Result<AuthDataResult, SignupError>?
+    var signupResult: AuthDataResult?
+    
+    var signupError: RevisionedError?
   }
   
   let initialState: State
@@ -66,12 +70,18 @@ final class SignupViewReactor: Reactor {
       
     case .signUp:
       guard !currentState.isCreatingUser && currentState.signupForm.isFullyFormed else { return .empty() }
+      guard
+        let name = currentState.signupForm.name,
+        let email = currentState.signupForm.email,
+        let password = currentState.signupForm.password
+      else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setCreatingUser(true)),
         
-        UserAccountManager.shared.signUp(currentState.signupForm)
-          .map { Mutation.setSignupResult($0) },
+        AuthService.shared.signUp(name: name, email: email, password: password)
+          .map { .setSignupResult($0) }
+          .catchError { .just(.setSignupError($0)) },
         
         Observable.just(.setCreatingUser(false)),
       ])
@@ -84,22 +94,24 @@ final class SignupViewReactor: Reactor {
     switch mutation {
     case .setName(let name):
       state.signupForm.name = name
-      state.signupResult = nil
       
     case .setEmail(let email):
       state.signupForm.email = email
-      state.signupResult = nil
       
     case .setPassword(let password):
       state.signupForm.password = password
-      state.signupResult = nil
       
     case .setCreatingUser(let isCreatingUser):
       state.isCreatingUser = isCreatingUser
-      state.signupResult = nil
       
     case .setSignupResult(let result):
       state.signupResult = result
+      
+    case .setSignupError(let error):
+      state.signupError = RevisionedError(
+        revision: (state.signupError?.revision ?? 0) + 1,
+        error: error
+      )
     }
     
     return state

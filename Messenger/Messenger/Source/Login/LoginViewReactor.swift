@@ -25,7 +25,9 @@ final class LoginViewReactor: Reactor {
     
     case setLoggingIn(Bool)
     
-    case setLoginResult(Result<AuthDataResult, LoginError>)
+    case setLoginResult(AuthDataResult)
+    
+    case setLoginError(Error)
   }
   
   struct State {
@@ -33,7 +35,9 @@ final class LoginViewReactor: Reactor {
     
     var isLoggingIn: Bool
     
-    var loginResult: Result<AuthDataResult, LoginError>?
+    var loginResult: AuthDataResult?
+    
+    var loginError: RevisionedError?
   }
   
   let initialState: State
@@ -55,13 +59,19 @@ final class LoginViewReactor: Reactor {
       return Observable.just(.setPassword(password))
       
     case .logIn:
-      guard !currentState.isLoggingIn && currentState.loginForm.hasValidForm else { return .empty() }
+      guard !currentState.isLoggingIn else { return .empty() }
+      guard
+        let email = currentState.loginForm.email,
+        email.isValidEmail,
+        let password = currentState.loginForm.password
+      else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setLoggingIn(true)),
         
-        UserAccountManager.shared.logIn(currentState.loginForm)
-          .map { Mutation.setLoginResult($0) },
+        AuthService.shared.logIn(email: email, password: password)
+          .map { .setLoginResult($0) }
+          .catchError { .just(.setLoginError($0)) },
         
         Observable.just(.setLoggingIn(false)),
       ])
@@ -74,18 +84,21 @@ final class LoginViewReactor: Reactor {
     switch mutation {
     case .setEmail(let email):
       state.loginForm.email = email
-      state.loginResult = nil
       
     case .setPassword(let password):
       state.loginForm.password = password
-      state.loginResult = nil
     
     case .setLoggingIn(let isLoggingIn):
       state.isLoggingIn = isLoggingIn
-      state.loginResult = nil
       
     case .setLoginResult(let result):
       state.loginResult = result
+      
+    case .setLoginError(let error):
+      state.loginError = RevisionedError(
+        revision: (state.loginError?.revision ?? 0) + 1,
+        error: error
+      )
     }
     
     return state
