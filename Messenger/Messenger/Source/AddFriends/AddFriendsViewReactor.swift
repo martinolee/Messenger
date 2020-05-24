@@ -13,6 +13,8 @@ final class AddFriendsViewReactor: Reactor {
     case updateEmail(String)
     
     case searchFriend
+    
+    case addFriend
   }
   
   enum Mutation {
@@ -20,21 +22,37 @@ final class AddFriendsViewReactor: Reactor {
     
     case setSearchingUser(Bool)
     
-    case setSearchResult(Result<[String: Any], AddFriendsError>)
+    case setSearchingUserError(Error)
+    
+    case setSearchedUser(User)
+    
+    case setAddingFriend(Bool)
+    
+    case setAddingFriendError(Error)
+    
+    case setAddedFriend(String)
   }
   
   struct State {
     var email: String?
     
-    var searcheResult: Result<[String: Any], AddFriendsError>?
-    
     var isSearchingUser: Bool
+    
+    var searchingError: RevisionedError?
+    
+    var searchedUser: User?
+    
+    var isAddingFriend: Bool
+    
+    var addingFriendError: RevisionedError?
+    
+    var addedFriend: String?
   }
   
   let initialState: State
   
   init() {
-    self.initialState = State(isSearchingUser: false)
+    self.initialState = State(isSearchingUser: false, isAddingFriend: false)
   }
   
   func mutate(action: Action) -> Observable<Mutation> {
@@ -48,10 +66,24 @@ final class AddFriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setSearchingUser(true)),
         
-        FriendsManager.shared.getUserInfo(by: email)
-          .map { .setSearchResult($0) },
+        FriendsService.shared.getUserInfo(byEmail: email)
+          .map { .setSearchedUser($0) }
+          .catchError { .just(.setSearchingUserError($0)) },
         
         Observable.just(.setSearchingUser(false)),
+      ])
+      
+    case .addFriend:
+      guard !currentState.isAddingFriend, let friendUID = currentState.searchedUser?.uid else { return .empty() }
+      
+      return Observable.concat([
+        Observable.just(.setAddingFriend(true)),
+        
+        FriendsService.shared.addFriend(byUID: friendUID)
+          .map { .setAddedFriend($0) }
+          .catchError { .just(.setAddingFriendError($0)) },
+          
+        Observable.just(.setAddingFriend(false)),
       ])
     }
   }
@@ -66,8 +98,26 @@ final class AddFriendsViewReactor: Reactor {
     case .setSearchingUser(let isSearchingUser):
       state.isSearchingUser = isSearchingUser
       
-    case .setSearchResult(let searcheResult):
-      state.searcheResult = searcheResult
+    case .setSearchingUserError(let error):
+      state.searchingError = RevisionedError(
+        revision: (state.searchingError?.revision ?? 0) + 1,
+        error: error
+      )
+      
+    case .setSearchedUser(let searchedUser):
+      state.searchedUser = searchedUser
+      
+    case .setAddingFriend(let isAddingFriend):
+      state.isAddingFriend = isAddingFriend
+      
+    case .setAddingFriendError(let error):
+      state.addingFriendError = RevisionedError(
+        revision: (state.addingFriendError?.revision ?? 0) + 1,
+        error: error
+      )
+      
+    case .setAddedFriend(let addedFriend):
+      state.addedFriend = addedFriend
     }
     
     return state

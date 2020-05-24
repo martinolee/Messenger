@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddFriendsViewController: UIViewController, View, ViewControllerSetup {
+final class AddFriendsViewController: UIViewController, View, ViewControllerSetup {
   // MARK: - Properties
   
   var disposeBag = DisposeBag()
@@ -70,6 +70,11 @@ class AddFriendsViewController: UIViewController, View, ViewControllerSetup {
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
+    addFriendsView.addFriendButton.rx.tap
+      .map { Reactor.Action.addFriend }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
     // MARK: - State
     
     reactor.state.map { !$0.isSearchingUser }
@@ -87,17 +92,54 @@ class AddFriendsViewController: UIViewController, View, ViewControllerSetup {
       .bind(to: addFriendsView.searchFriendButton.rx.isEnabled)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.searcheResult }
+    reactor.state.map { $0.searchingError }
       .filterNil()
-      .subscribe(onNext: { [weak self] result in
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] error in
+        guard let self = self else { return }
+        guard let error = error.error as? FriendsError else { return }
+        
+        self.addFriendsView.userProfileImageView.isHidden = true
+        self.addFriendsView.userNameLabel.text = error.localizedDescription
+        self.addFriendsView.addFriendButton.isHidden = true
+      })
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.searchedUser?.name }
+      .filterNil()
+      .distinctUntilChanged()
+      .bind(to: addFriendsView.userNameLabel.rx.text)
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.searchedUser }
+      .filterNil()
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] user in
         guard let self = self else { return }
         
-        switch result {
-        case .success(let data):
-          print(data)
-        case .failure(let error):
-          print(error.localizedDescription)
-        }
+        self.addFriendsView.userProfileImageView.isHidden = false
+        self.addFriendsView.userNameLabel.isHidden = false
+        self.addFriendsView.addFriendButton.isHidden = false
+      })
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { !$0.isAddingFriend }
+      .distinctUntilChanged()
+      .bind(to: addFriendsView.dimView.rx.isHidden)
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.isAddingFriend }
+      .distinctUntilChanged()
+      .bind(to: addFriendsView.activityIndicatorView.rx.isAnimating)
+      .disposed(by: disposeBag)
+    
+    reactor.state.map { $0.addedFriend }
+      .filterNil()
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] _ in
+        guard self != nil else { return }
+        
+        
       })
       .disposed(by: disposeBag)
   }
