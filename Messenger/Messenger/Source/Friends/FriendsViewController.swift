@@ -64,9 +64,14 @@ final class FriendsViewController: UIViewController, View, ViewControllerSetup {
       .itemSelected
       .subscribe(onNext: { [weak self] index in
         guard let self = self else { return }
-        let profileViewController = ProfileViewController()
+        let navigationViewController = UINavigationController(rootViewController: ProfileViewController().then {
+          $0.reactor = ProfileViewReactor()
+        }).then {
+          $0.modalPresentationStyle = .fullScreen
+        }
         
-        self.present(profileViewController, animated: true)
+        self.present(navigationViewController, animated: true)
+        self.friendsView.friendsTableView.deselectRow(at: index, animated: true)
       })
       .disposed(by: disposeBag)
     
@@ -81,9 +86,7 @@ final class FriendsViewController: UIViewController, View, ViewControllerSetup {
         FriendsService.shared.usersDB.document(uid).getDocument { snapshot, error in
           guard error == nil, let friendDictionary = snapshot?.data(), let friend = User(friendDictionary) else { return }
           
-          cell.profileImageView.kf.setImage(with: friend.profileImageURL, placeholder: UIImage(systemName: "person.crop.square"))
-          cell.nameLabel.text = friend.name
-          cell.statusMessageLabel.text = friend.statusMessage
+          cell.reactor = FriendCellReactor(friend: friend)
         }
     }.disposed(by: disposeBag)
   }
