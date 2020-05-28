@@ -8,12 +8,11 @@
 
 import UIKit
 
-final class FriendsViewController: UIViewController, View, ViewControllerSetup {
+final class FriendsViewController: BaseViewController, View {
   // MARK: - Properties
   
-  var disposeBag = DisposeBag()
-  
   let friendsView = FriendsView()
+  
   
   // MARK: - Life Cycle
   
@@ -27,11 +26,11 @@ final class FriendsViewController: UIViewController, View, ViewControllerSetup {
   
   // MARK: - Setup
   
-  func setUpAttribute() {
+  override func setUpAttribute() {
     self.title = TabBar.friends.title.localized
   }
   
-  func setUpRootView() {
+  override func setUpRootView() {
     self.reactor = FriendsViewReactor()
     
     view.addSubview(friendsView)

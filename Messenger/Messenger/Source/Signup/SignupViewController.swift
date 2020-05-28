@@ -8,12 +8,11 @@
 
 import UIKit
 
-final class SignupViewController: UIViewController, View, ViewControllerSetup {
+final class SignupViewController: BaseViewController, View {
   // MARK: - Properties
   
-  var disposeBag = DisposeBag()
-  
   let signupView = SignupView()
+  
   
   // MARK: - Life Cycle
   
@@ -27,10 +26,10 @@ final class SignupViewController: UIViewController, View, ViewControllerSetup {
   
   // MARK: - Setup
   
-  func setUpAttribute() {
+  override func setUpAttribute() {
   }
   
-  func setUpRootView() {
+  override func setUpRootView() {
     self.reactor = SignupViewReactor()
     
     view.addSubview(signupView)

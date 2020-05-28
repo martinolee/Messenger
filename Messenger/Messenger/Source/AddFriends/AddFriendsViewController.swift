@@ -8,12 +8,11 @@
 
 import UIKit
 
-final class AddFriendsViewController: UIViewController, View, ViewControllerSetup {
+final class AddFriendsViewController: BaseViewController, View {
   // MARK: - Properties
   
-  var disposeBag = DisposeBag()
-  
   let addFriendsView = AddFriendsView()
+  
   
   // MARK: - Life Cycle
   
@@ -27,10 +26,10 @@ final class AddFriendsViewController: UIViewController, View, ViewControllerSetu
   
   // MARK: - Setup
   
-  func setUpAttribute() {
+  override func setUpAttribute() {
   }
   
-  func setUpRootView() {
+  override func setUpRootView() {
     self.reactor = AddFriendsViewReactor()
     
     view.addSubview(addFriendsView)
@@ -131,16 +130,6 @@ final class AddFriendsViewController: UIViewController, View, ViewControllerSetu
     reactor.state.map { $0.isAddingFriend }
       .distinctUntilChanged()
       .bind(to: addFriendsView.activityIndicatorView.rx.isAnimating)
-      .disposed(by: disposeBag)
-    
-    reactor.state.map { $0.addedFriend }
-      .filterNil()
-      .distinctUntilChanged()
-      .subscribe(onNext: { [weak self] _ in
-        guard self != nil else { return }
-        
-        
-      })
       .disposed(by: disposeBag)
   }
 }

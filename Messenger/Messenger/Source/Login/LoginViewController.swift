@@ -8,12 +8,11 @@
 
 import UIKit
 
-final class LoginViewController: UIViewController, View, ViewControllerSetup {
+final class LoginViewController: BaseViewController, View {
   // MARK: - Properties
   
-  var disposeBag = DisposeBag()
-  
   let loginView = LoginView()
+  
   
   // MARK: - Life Cycle
   
@@ -26,10 +25,10 @@ final class LoginViewController: UIViewController, View, ViewControllerSetup {
   
   // MARK: - Setup
   
-  func setUpAttribute() {
+  override func setUpAttribute() {
   }
   
-  func setUpRootView() {
+  override func setUpRootView() {
     self.reactor = LoginViewReactor()
 
     view.addSubview(loginView)
