@@ -24,6 +24,7 @@ final class FriendsViewController: BaseViewController, View {
     setUpNavigation()
   }
   
+  
   // MARK: - Setup
   
   override func setUpAttribute() {
@@ -41,16 +42,18 @@ final class FriendsViewController: BaseViewController, View {
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: friendsView.addFriendsButton)
   }
   
+  
+  // MARK: - Binding
+  
   func bind(reactor: FriendsViewReactor) {
-    // MARK: - Action
+    // Action
     
     Observable.just(Void())
       .map { Reactor.Action.fetchFriendUIDs }
       .bind(to: reactor.action)
       .disposed(by: disposeBag)
     
-    friendsView.addFriendsButton.rx
-      .tap
+    friendsView.addFriendsButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
         let addFriendsViewController = UINavigationController(rootViewController: AddFriendsViewController())
@@ -59,25 +62,28 @@ final class FriendsViewController: BaseViewController, View {
       })
       .disposed(by: disposeBag)
     
-    friendsView.friendsTableView.rx
-      .itemSelected
+    friendsView.friendsTableView.rx.itemSelected
       .subscribe(onNext: { [weak self] index in
-        guard let self = self else { return }
-        let navigationViewController = UINavigationController(rootViewController: ProfileViewController().then {
-          $0.reactor = ProfileViewReactor()
-        }).then {
+        guard
+          let self = self,
+          let friendCell = self.friendsView.friendsTableView.cellForRow(at: index) as? FriendCell,
+          let friendCellReactor = friendCell.reactor
+        else { return }
+        let profileViewReactor = reactor.reactorForProfile(friendCellReactor)
+        
+        let viewController = ProfileViewController(reactor: profileViewReactor)
+        let navigationController = UINavigationController(rootViewController: viewController).then {
           $0.modalPresentationStyle = .fullScreen
         }
         
-        self.present(navigationViewController, animated: true)
+        self.present(navigationController, animated: true)
         self.friendsView.friendsTableView.deselectRow(at: index, animated: true)
       })
       .disposed(by: disposeBag)
     
-    // MARK: - State
+    // State
     
-    reactor.state
-      .map { $0.friendUIDs }
+    reactor.state.map { $0.friendUIDs }
       .distinctUntilChanged()
       .bind(to: friendsView.friendsTableView.rx.items(cellIdentifier: FriendCell.identifier, cellType: FriendCell.self)) { [weak self] row, uid, cell in
         guard self != nil else { return }

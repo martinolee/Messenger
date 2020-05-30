@@ -27,6 +27,7 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
     $0.textAlignment = .left
   }
   
+  
   // MARK: - Life Cycle
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -40,6 +41,7 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
   
   // MARK: - Setup UI
   
@@ -78,10 +80,13 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
     }
   }
   
+  
+  // MARK: Binding
+  
   func bind(reactor: FriendCellReactor) {
-    // MARK: - State
+    // State
     
-    reactor.state.map { $0.friend?.profileImageURL }
+    reactor.state.map { $0.friend.profileImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
         guard let self = self else { return }
@@ -90,13 +95,12 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
       })
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.friend?.name }
-      .filterNil()
+    reactor.state.map { $0.friend.name }
       .distinctUntilChanged()
       .bind(to: nameLabel.rx.text)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.friend?.statusMessage }
+    reactor.state.map { $0.friend.statusMessage }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] statusMessage in
         guard let self = self else { return }

@@ -12,7 +12,7 @@ class FriendCellReactor: Reactor {
   typealias Action = NoAction
   
   struct State {
-    var friend: User?
+    var friend: User
   }
   
   let initialState: State

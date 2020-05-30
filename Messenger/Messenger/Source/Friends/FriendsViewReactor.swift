@@ -61,3 +61,11 @@ final class FriendsViewReactor: Reactor {
     return state
   }
 }
+
+extension FriendsViewReactor {
+  func reactorForProfile(_ friendCellReactor: FriendCellReactor) -> ProfileViewReactor {
+    let friend = friendCellReactor.currentState.friend
+    
+    return ProfileViewReactor(user: friend)
+  }
+}
