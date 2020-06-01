@@ -56,7 +56,7 @@ final class FriendsViewController: BaseViewController, View {
     friendsView.addFriendsButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let addFriendsViewController = UINavigationController(rootViewController: AddFriendsViewController())
+        let addFriendsViewController = NavigationController(AddFriendsViewController())
         
         self.present(addFriendsViewController, animated: true)
       })
@@ -66,13 +66,12 @@ final class FriendsViewController: BaseViewController, View {
       .subscribe(onNext: { [weak self] index in
         guard
           let self = self,
-          let friendCell = self.friendsView.friendsTableView.cellForRow(at: index) as? FriendCell,
-          let friendCellReactor = friendCell.reactor
+          let friendCellReactor = (self.friendsView.friendsTableView.cellForRow(at: index) as? FriendCell)?.reactor
         else { return }
         let profileViewReactor = reactor.reactorForProfile(friendCellReactor)
         
         let viewController = ProfileViewController(reactor: profileViewReactor)
-        let navigationController = UINavigationController(rootViewController: viewController).then {
+        let navigationController = NavigationController(viewController).then {
           $0.modalPresentationStyle = .fullScreen
         }
         
@@ -82,15 +81,20 @@ final class FriendsViewController: BaseViewController, View {
       .disposed(by: disposeBag)
     
     // State
-    
-    reactor.state.map { $0.friendUIDs }
-      .distinctUntilChanged()
-      .bind(to: friendsView.friendsTableView.rx.items(cellIdentifier: FriendCell.identifier, cellType: FriendCell.self)) { [weak self] row, uid, cell in
-        guard self != nil else { return }
+      
+    reactor.state.map { $0.friends }
+      .bind(to: friendsView.friendsTableView.rx.items(
+        cellIdentifier: FriendCell.identifier,
+        cellType: FriendCell.self)
+      ) { [weak self] index, friend, cell in
+        guard let self = self else { return }
         
-        FriendsService.shared.usersDB.document(uid).getDocument { snapshot, error in
-          guard error == nil, let friendDictionary = snapshot?.data(), let friend = User(friendDictionary) else { return }
-          
+        if let friendUID = friend as? String {
+          Observable.just(Void())
+            .map { Reactor.Action.updateFriendAt(index, friendUID) }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        } else if let friend = friend as? User {
           cell.reactor = FriendCellReactor(friend: friend)
         }
     }.disposed(by: disposeBag)

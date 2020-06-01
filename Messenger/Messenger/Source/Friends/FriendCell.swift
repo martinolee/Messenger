@@ -8,10 +8,8 @@
 
 import UIKit
 
-final class FriendCell: UITableViewCell, View, ViewSetup {
+final class FriendCell: BaseCell, View {
   // MARK: - Properties
-  
-  var disposeBag = DisposeBag()
   
   let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
@@ -45,11 +43,11 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
   
   // MARK: - Setup UI
   
-  func setUpAttribute() {
+  override func setUpAttribute() {
     self.backgroundColor = .systemBackground
   }
   
-  func addAllSubviews() {
+  override func addAllSubviews() {
     contentView.addSubviews([
       profileImageView,
       nameLabel,
@@ -57,7 +55,7 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
     ])
   }
   
-  func setUpLayout() {
+  override func setUpLayout() {
     let safeArea = contentView.safeAreaLayoutGuide
     
     profileImageView.snp.makeConstraints {
@@ -86,7 +84,7 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
   func bind(reactor: FriendCellReactor) {
     // State
     
-    reactor.state.map { $0.friend.profileImageURL }
+    reactor.state.map { $0.profileImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
         guard let self = self else { return }
@@ -95,12 +93,12 @@ final class FriendCell: UITableViewCell, View, ViewSetup {
       })
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.friend.name }
+    reactor.state.map { $0.name }
       .distinctUntilChanged()
       .bind(to: nameLabel.rx.text)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.friend.statusMessage }
+    reactor.state.map { $0.statusMessage }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] statusMessage in
         guard let self = self else { return }

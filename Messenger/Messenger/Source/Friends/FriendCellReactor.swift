@@ -11,13 +11,9 @@ import Foundation
 class FriendCellReactor: Reactor {
   typealias Action = NoAction
   
-  struct State {
-    var friend: User
-  }
-  
-  let initialState: State
+  let initialState: User
   
   init(friend: User) {
-    self.initialState = State(friend: friend)
+    self.initialState = friend
   }
 }

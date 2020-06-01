@@ -11,24 +11,36 @@ import Foundation
 final class FriendsViewReactor: Reactor {
   enum Action {
     case fetchFriendUIDs
+    
+    case updateFriendAt(Int, String)
   }
   
   enum Mutation {
     case setFetchingFriendUIDs(Bool)
     
     case setFriendUIDs([String])
+    
+    case setUpdatingFriends((index: Int, value: Bool))
+    
+    case setFriend(Int, User)
   }
   
   struct State {
     var isFetchingFriendUIDs: Bool
     
-    var friendUIDs: [String]
+    var updatingFriends: [(index: Int, value: Bool)]
+    
+    var friends: [Any]
   }
   
   let initialState: State
   
   init() {
-    self.initialState = State(isFetchingFriendUIDs: false, friendUIDs: [])
+    self.initialState = State(
+      isFetchingFriendUIDs: false,
+      updatingFriends: [],
+      friends: []
+    )
   }
   
   func mutate(action: Action) -> Observable<Mutation> {
@@ -39,10 +51,22 @@ final class FriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setFetchingFriendUIDs(true)),
         
-        FriendsService.shared.fetchFriendUIDs()
+        UserService.shared.fetchFriendUIDs()
           .map(Mutation.setFriendUIDs),
         
         Observable.just(.setFetchingFriendUIDs(false)),
+      ])
+      
+    case .updateFriendAt(let index, let friendUID):
+      guard !currentState.updatingFriends.contains(where: { $0.index == index }) else { return .empty() }
+      
+      return Observable.concat([
+        Observable.just(.setUpdatingFriends((index, true))),
+        
+        UserService.shared.getUser(byUID: friendUID)
+          .map { Mutation.setFriend(index, $0) },
+        
+        Observable.just(.setUpdatingFriends((index, false))),
       ])
     }
   }
@@ -55,7 +79,18 @@ final class FriendsViewReactor: Reactor {
       state.isFetchingFriendUIDs = isFetchingFriendUIDs
       
     case .setFriendUIDs(let friendUIDs):
-      state.friendUIDs = friendUIDs
+      state.friends = friendUIDs
+      
+    case .setUpdatingFriends(let updatingFriend):
+      state.updatingFriends.append(updatingFriend)
+      
+      if updatingFriend.value == false {
+        state.updatingFriends = state.updatingFriends
+          .filter { $0.index != updatingFriend.index }
+      }
+      
+    case .setFriend(let index, let friend):
+      state.friends[index] = friend
     }
     
     return state
@@ -64,7 +99,7 @@ final class FriendsViewReactor: Reactor {
 
 extension FriendsViewReactor {
   func reactorForProfile(_ friendCellReactor: FriendCellReactor) -> ProfileViewReactor {
-    let friend = friendCellReactor.currentState.friend
+    let friend = friendCellReactor.currentState
     
     return ProfileViewReactor(user: friend)
   }
