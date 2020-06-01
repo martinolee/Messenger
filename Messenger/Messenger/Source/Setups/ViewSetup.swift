@@ -15,4 +15,3 @@ protocol ViewSetup where Self: UIView {
   
   func setUpLayout()
 }
-

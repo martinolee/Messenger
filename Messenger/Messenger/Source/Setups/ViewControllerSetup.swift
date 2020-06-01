@@ -9,5 +9,7 @@
 import UIKit.UIViewController
 
 protocol ViewControllerSetup where Self: UIViewController {
+  func setUpAttribute()
+  
   func setUpRootView()
 }

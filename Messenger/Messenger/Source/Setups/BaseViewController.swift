@@ -14,6 +14,17 @@ class BaseViewController: UIViewController, ViewControllerSetup {
   var disposeBag = DisposeBag()
   
   
+  // MARK: - Life Cycle
+  
+  init() {
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required convenience init?(coder aDecoder: NSCoder) {
+    self.init()
+  }
+  
+  
   // MARK: - Setup
   
   func setUpAttribute() {
