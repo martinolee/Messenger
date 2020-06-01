@@ -1,0 +1,24 @@
+disabled_rules:
+- trailing_whitespace
+- vertical_whitespace
+- trailing_comma
+- function_body_length
+
+type_name:
+  min_length: 2
+identifier_name:
+  min_length: 2
+
+line_length:
+  warning: 120
+  ignores_function_declarations: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+  ignores_urls: true
+
+force_cast: warning
+force_try: warning
+
+excluded:
+- Pods
+- Messenger/Source/Application/AppDelegate.swift
