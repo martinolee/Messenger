@@ -11,19 +11,19 @@ import UIKit
 final class MainTabBarController: UITabBarController {
   // MARK: - Properties
 
-  let friendsViewController = UINavigationController(rootViewController: TabBar.friends.viewController).then {
+  let friendsViewController = NavigationController(TabBar.friends.viewController).then {
     $0.title = TabBar.friends.title.localized
     $0.tabBarItem.image = UIImage(systemName: "person")
     $0.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
   }
   
-  let messagesViewController = UINavigationController(rootViewController: TabBar.messages.viewController).then {
+  let messagesViewController = NavigationController(TabBar.messages.viewController).then {
     $0.title = TabBar.messages.title.localized
     $0.tabBarItem.image = UIImage(systemName: "bubble.left")
     $0.tabBarItem.selectedImage = UIImage(systemName: "bubble.left.fill")
   }
   
-  let settingsViewController = UINavigationController(rootViewController: TabBar.settings.viewController).then {
+  let settingsViewController = NavigationController(TabBar.settings.viewController).then {
     $0.title = TabBar.settings.title.localized
     $0.tabBarItem.image = UIImage(systemName: "gear")
     $0.tabBarItem.selectedImage = UIImage(systemName: "gear")
