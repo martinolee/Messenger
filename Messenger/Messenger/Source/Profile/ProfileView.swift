@@ -36,11 +36,11 @@ class ProfileView: UIView, ViewSetup {
   
   let statusMessageLabel = UILabel().then {
     $0.textAlignment = .center
-    $0.numberOfLines = 4
+    $0.numberOfLines = 3
     $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
   }
   
-  let chatButton = UIButton(type: .system).then {
+  let messageButton = UIButton(type: .system).then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
@@ -88,7 +88,7 @@ class ProfileView: UIView, ViewSetup {
       profileImageView,
       nameLabel,
       statusMessageLabel,
-      chatButton
+      messageButton
     ])
   }
   
@@ -123,7 +123,7 @@ class ProfileView: UIView, ViewSetup {
       $0.leading.trailing.equalTo(nameLabel).inset(16)
     }
     
-    chatButton.snp.makeConstraints {
+    messageButton.snp.makeConstraints {
       $0.top.equalTo(statusMessageLabel.snp.bottom).offset(16)
       $0.leading.trailing.equalToSuperview().inset(16)
       $0.height.equalTo(50)

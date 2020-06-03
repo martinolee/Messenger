@@ -10,7 +10,7 @@ import Foundation
 
 final class ProfileViewReactor: Reactor {
   enum Action {
-    
+    case startMessaging
   }
   
   enum Mutation {

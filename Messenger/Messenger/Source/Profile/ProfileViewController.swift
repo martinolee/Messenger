@@ -69,6 +69,11 @@ final class ProfileViewController: BaseViewController, View {
       })
       .disposed(by: disposeBag)
     
+    profileView.messageButton.rx.tap
+      .map { Reactor.Action.startMessaging }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
     // State
     
     reactor.state.map { $0.user.profileCoverImageURL }
@@ -83,9 +88,10 @@ final class ProfileViewController: BaseViewController, View {
     reactor.state.map { $0.user.profileImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
-        guard let self = self else { return }
+        guard let self = self, let placeholder = UIImage(systemName: "person.crop.square") else { return }
         
-        self.profileView.profileImageView.kf.setImage(with: profileImageURL, placeholder: UIImage(systemName: "person.crop.square"))
+        
+        self.profileView.profileImageView.kf.setImage(with: profileImageURL, placeholder: placeholder)
       })
       .disposed(by: disposeBag)
     
