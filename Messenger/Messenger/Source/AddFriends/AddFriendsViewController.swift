@@ -113,7 +113,7 @@ final class AddFriendsViewController: BaseViewController, View {
     reactor.state.map { $0.searchedUser }
       .filterNil()
       .distinctUntilChanged()
-      .subscribe(onNext: { [weak self] user in
+      .subscribe(onNext: { [weak self] _ in
         guard let self = self else { return }
         
         self.addFriendsView.userProfileImageView.isHidden = false
