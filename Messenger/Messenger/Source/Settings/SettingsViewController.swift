@@ -50,20 +50,11 @@ final class SettingsViewController: BaseViewController, View {
         switch indexPath.row {
         case Settings.logOut.id:
           do {
-            try Auth.auth().signOut()
+            try AuthService.shared.logOut()
             
             appDelegate.setUpRootViewControllerForUserLoginCondition()
           } catch {
             print(error.localizedDescription)
-          }
-          
-        case Settings.deleteAccount.id:
-          AuthService.shared.deleteAccount { error in
-            if let error = error {
-              print(error.localizedDescription)
-            } else {
-              appDelegate.setUpRootViewControllerForUserLoginCondition()
-            }
           }
           
         default:
@@ -74,11 +65,12 @@ final class SettingsViewController: BaseViewController, View {
     
     // MARK: - State
     
-    reactor.state.map { $0.settings }
-      .bind(to: settingsView.settingsTableView.rx.items(cellIdentifier: UITableViewCell.identifier)) { index, setting, cell in
+    reactor.state.bind(to: settingsView.settingsTableView.rx.items(
+        cellIdentifier: UITableViewCell.identifier)
+      ) { [weak self] _, setting, cell in
+        guard self != nil else { return }
         
         cell.textLabel?.text = setting.title.localized
-        
     }.disposed(by: disposeBag)
   }
 }
