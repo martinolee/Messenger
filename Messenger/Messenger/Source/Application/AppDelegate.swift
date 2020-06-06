@@ -6,9 +6,12 @@
 //  Copyright © 2020 Soohan Lee. All rights reserved.
 //
 
+#if DEBUG
+import Gedatsu;
+#endif
+
 import UIKit
 import Firebase
-import FirebaseAuth
 
 @UIApplicationMain
 
@@ -26,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    configureDebug()
     FirebaseApp.configure()
-    try? Auth.auth().signOut()
     setUpWindow()
     
     return true
@@ -41,7 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func setUpRootViewControllerForUserLoginCondition() {
-    rootViewController = UserAccountManager.shared.isUserLoggedIn ? MainTabBarController() : LoginViewController()
+    rootViewController = AuthService.shared.isUserLoggedIn ? MainTabBarController() : LoginViewController()
+  }
+  
+  private func configureDebug() {
+    #if DEBUG
+    Gedatsu.open()
+    #endif
   }
 }
-
