@@ -16,7 +16,7 @@ public struct SignupForm {
 
 extension SignupForm {
   var isFullyFormed: Bool {
-    isNameEntered && isEmailEntered && isPasswordEntered && hasValidEmail && hasValidPassword
+    isNameEntered && hasValidEmail && hasValidPassword
   }
   
   var isNameEntered: Bool {
