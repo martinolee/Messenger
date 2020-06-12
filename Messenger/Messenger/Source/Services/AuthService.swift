@@ -58,6 +58,10 @@ final public class AuthService {
     }
   }
   
+  public func logOut() throws {
+    try auth.signOut()
+  }
+  
   public func deleteAccount(completionHandler: @escaping (Error?) -> Void) {
     guard let uid = auth.currentUser?.uid else { return }
     
