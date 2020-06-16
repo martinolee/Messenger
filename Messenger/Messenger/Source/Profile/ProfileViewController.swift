@@ -62,9 +62,7 @@ final class ProfileViewController: BaseViewController, View {
     // Action
     
     profileView.backButton.rx.tap
-      .subscribe(onNext: { [weak self] in
-        guard let self = self else { return }
-        
+      .subscribe(onNext: { [unowned self] in
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
@@ -89,7 +87,6 @@ final class ProfileViewController: BaseViewController, View {
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
         guard let self = self, let placeholder = UIImage(systemName: "person.crop.square") else { return }
-        
         
         self.profileView.profileImageView.kf.setImage(with: profileImageURL, placeholder: placeholder)
       })
