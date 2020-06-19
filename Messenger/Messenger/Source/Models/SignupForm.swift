@@ -10,7 +10,9 @@ import Foundation
 
 public struct SignupForm {
   var name: String?
+  
   var email: String?
+  
   var password: String?
 }
 
