@@ -9,8 +9,9 @@ target 'Messenger' do
   # Rx
   pod 'RxSwift', '5.1.1'
   pod 'RxCocoa', '5.1.1'
-  pod 'RxDataSources', '4.1.0'
+  pod 'RxDataSources'
   pod 'RxOptional', '4.1.0'
+  pod 'RxGesture', :git => 'https://github.com/martinolee/RxGesture.git', :commit => '52c61481973f15ef8f2042eb5cdc08edd6c791f6' # 3.0.2
   
   # UI
   pod 'SnapKit', '5.0.1'
