@@ -1,5 +1,5 @@
 //
-//  UITableViewCell+Additions.swift
+//  UITableViewCell+Extensions.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/20.

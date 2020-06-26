@@ -1,5 +1,5 @@
 //
-//  UIButton+Additions.swift
+//  UIButton+Extensions.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/19.
