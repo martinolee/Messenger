@@ -10,7 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-class UserService {
+public final class UserService {
   static let shared = UserService()
   
   private let auth = Auth.auth()

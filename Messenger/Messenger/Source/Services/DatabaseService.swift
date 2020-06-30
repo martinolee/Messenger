@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-class DatabaseService {
+public final class DatabaseService {
   static let shared = DatabaseService()
   
   let usersDB = Firestore.firestore().collection("users")
