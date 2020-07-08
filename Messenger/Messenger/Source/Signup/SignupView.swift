@@ -29,19 +29,24 @@ final class SignupView: UIView, ViewSetup {
   }
   
   let nameTextField = UITextField().then {
+    $0.textContentType = .name
     $0.autocorrectionType = .no
     $0.autocapitalizationType = .words
+    $0.returnKeyType = .next
     $0.placeholder = "Name".localized
   }
   
   let emailTextField = UITextField().then {
+    $0.textContentType = .emailAddress
     $0.autocorrectionType = .no
     $0.autocapitalizationType = .none
     $0.keyboardType = .emailAddress
+    $0.returnKeyType = .next
     $0.placeholder = "Email".localized
   }
   
   let passwordTextField = UITextField().then {
+    $0.textContentType = .password
     $0.isSecureTextEntry = true
     $0.placeholder = "Password".localized
   }
@@ -79,6 +84,7 @@ final class SignupView: UIView, ViewSetup {
   
   func setUpAttribute() {
     self.backgroundColor = .systemBackground
+    self.hideKeyboardWhenTappedAround()
   }
   
   func addAllSubviews() {
