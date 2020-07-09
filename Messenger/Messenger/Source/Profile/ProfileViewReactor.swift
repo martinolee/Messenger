@@ -13,25 +13,11 @@ final class ProfileViewReactor: Reactor {
     case startMessaging
   }
   
-  enum Mutation {
-    
-  }
-  
-  struct State {
-    var user: User
-  }
+  typealias State = User
   
   var initialState: State
   
   init(user: User) {
-    self.initialState = State(user: user)
-  }
-  
-  func mutate(action: Action) -> Observable<Mutation> {
-    .empty()
-  }
-  
-  func reduce(state: State, mutation: Action) -> State {
-    state
+    self.initialState = user
   }
 }

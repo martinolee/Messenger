@@ -74,7 +74,7 @@ final class ProfileViewController: BaseViewController, View {
     
     // State
     
-    reactor.state.map { $0.user.profileCoverImageURL }
+    reactor.state.map { $0.profileCoverImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileCoverImageURL in
         guard let self = self else { return }
@@ -83,7 +83,7 @@ final class ProfileViewController: BaseViewController, View {
       })
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.user.profileImageURL }
+    reactor.state.map { $0.profileImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
         guard let self = self, let placeholder = UIImage(systemName: "person.crop.square") else { return }
@@ -92,12 +92,12 @@ final class ProfileViewController: BaseViewController, View {
       })
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.user.name }
+    reactor.state.map { $0.name }
       .distinctUntilChanged()
       .bind(to: profileView.nameLabel.rx.text)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.user.statusMessage }
+    reactor.state.map { $0.statusMessage }
       .filterNil()
       .distinctUntilChanged()
       .bind(to: profileView.statusMessageLabel.rx.text)
