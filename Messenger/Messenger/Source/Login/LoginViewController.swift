@@ -71,7 +71,7 @@ final class LoginViewController: BaseViewController, View {
     loginView.signupButton.rx.tap
       .subscribe(onNext: { [weak self] in
         guard let self = self else { return }
-        let signupViewController = UINavigationController(rootViewController: SignupViewController())
+        let signupViewController = NavigationController(SignupViewController())
         
         self.present(signupViewController, animated: true)
       })
@@ -97,7 +97,7 @@ final class LoginViewController: BaseViewController, View {
     reactor.state.map { $0.loginResult }
       .filterNil()
       .distinctUntilChanged()
-      .subscribe(onNext: { [weak self] result in
+      .subscribe(onNext: { [weak self] _ in
         guard self != nil else { return }
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
