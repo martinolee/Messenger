@@ -8,13 +8,16 @@
 
 import UIKit
 
-class BaseView: UIView, ViewSetup {
-  func setUpAttribute() {
+class BaseView: UIView {
+  
+  // MARK: - Initialization
+  
+  init() {
+    super.init(frame: .zero)
   }
   
-  func addAllSubviews() {
-  }
-  
-  func setUpLayout() {
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }
