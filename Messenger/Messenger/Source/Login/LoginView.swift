@@ -8,18 +8,48 @@
 
 import UIKit
 
-final class LoginView: UIView, ViewSetup {
+final class LoginView: BaseView, ViewSetup {
+  
+  // MARK: - Constants
+  
+  private enum Metric {
+    static let padding = 16
+    
+    static let height = 50
+  }
+  
+  private enum Font {
+    static let loginButtonFont = UIFont.systemFont(ofSize: 24, weight: .bold)
+  }
+  
+  private enum Color {
+    static let dimViewBackground = UIColor.black.withAlphaComponent(0.5)
+    
+    static let activityIndicatorView = UIColor.systemOrange
+    
+    static let loginButtonNormalTitle = UIColor.white
+    
+    static let loginButtonDisabledTitle = UIColor.white.withAlphaComponent(0.5)
+    
+    static let loginButtonNormalBackground = UIColor.systemOrange
+    
+    static let loginButtonDisabledBackground = UIColor.lightGray
+    
+    static let signupButtonTitle = UIColor.systemOrange
+  }
+  
+  
   // MARK: - Properties
   
   let dimView = UIView().then {
     $0.isHidden = true
-    $0.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    $0.backgroundColor = Color.dimViewBackground
   }
   
   let activityIndicatorView = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
     $0.style = .large
-    $0.color = .systemOrange
+    $0.color = Color.activityIndicatorView
   }
   
   let emailTextField = UITextField().then {
@@ -41,39 +71,37 @@ final class LoginView: UIView, ViewSetup {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
-    $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
+    $0.titleLabel?.font = Font.loginButtonFont
     
     $0.setTitle("Log In".localized, for: .normal)
     
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+    $0.setTitleColor(Color.loginButtonNormalTitle, for: .normal)
+    $0.setTitleColor(Color.loginButtonDisabledTitle, for: .disabled)
     
-    $0.setBackgroundColor(.systemOrange, for: .normal)
-    $0.setBackgroundColor(.lightGray, for: .disabled)
+    $0.setBackgroundColor(Color.loginButtonNormalBackground, for: .normal)
+    $0.setBackgroundColor(Color.loginButtonDisabledBackground, for: .disabled)
   }
   
   let signupButton = UIButton(type: .system).then {
     $0.setTitle("Sign Up".localized, for: .normal)
-    $0.setTitleColor(.systemOrange, for: .normal)
+    $0.setTitleColor(Color.signupButtonTitle, for: .normal)
   }
   
   let findAccountOrPasswordButton = UIButton(type: .system).then {
     $0.setTitle("Find Account or Password".localized, for: .normal)
   }
   
+  
   // MARK: - Life Cycle
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  override init() {
+    super.init()
     
     setUpAttribute()
     addAllSubviews()
     setUpLayout()
   }
   
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
   
   // MARK: - Setup UI
   
@@ -92,7 +120,9 @@ final class LoginView: UIView, ViewSetup {
       dimView,
     ])
     
-    dimView.addSubview(activityIndicatorView)
+    dimView.addSubviews([
+      activityIndicatorView,
+    ])
   }
   
   func setUpLayout() {
@@ -103,30 +133,26 @@ final class LoginView: UIView, ViewSetup {
     activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
     
     emailTextField.snp.makeConstraints {
-      $0.top.equalTo(safeArea).offset(16)
-      $0.leading.trailing.equalTo(safeArea).inset(16)
-      $0.height.equalTo(50)
+      $0.top.equalTo(safeArea).offset(Metric.padding)
+      $0.leading.trailing.equalTo(safeArea).inset(Metric.padding)
+      $0.height.equalTo(Metric.height)
     }
     
     passwordTextField.snp.makeConstraints {
-      $0.top.equalTo(emailTextField.snp.bottom).offset(8)
+      $0.top.equalTo(emailTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(emailTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     loginButton.snp.makeConstraints {
-      $0.top.equalTo(passwordTextField.snp.bottom).offset(16)
+      $0.top.equalTo(passwordTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(emailTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     signupButton.snp.makeConstraints {
-      $0.top.equalTo(loginButton.snp.bottom).offset(8)
+      $0.top.equalTo(loginButton.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(emailTextField)
     }
-    
-    dimView.snp.makeConstraints { $0.edges.equalToSuperview() }
-    
-    activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
   }
 }
