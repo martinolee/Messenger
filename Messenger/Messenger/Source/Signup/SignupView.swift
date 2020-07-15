@@ -9,23 +9,52 @@
 import UIKit
 
 final class SignupView: UIView, ViewSetup {
+  
+  // MARK: - Constants
+  
+  private enum Metric {
+    static let padding = 16
+    
+    static let height = 50
+  }
+  
+  private enum Font {
+    static let signupButton = UIFont.systemFont(ofSize: 24, weight: .bold)
+  }
+  
+  private enum Color {
+    static let dimView = UIColor.black.withAlphaComponent(0.5)
+    
+    static let activityIndicatorView = UIColor.systemOrange
+    
+    static let cancelButton = UIColor.systemOrange
+    
+    static let signupButtonNormalTitle = UIColor.white
+    
+    static let signupButtonDisabledTitle = UIColor.white.withAlphaComponent(0.5)
+    
+    static let signupButtonNormalBackground = UIColor.systemOrange
+    
+    static let signupButtonDisabledBackground = UIColor.lightGray
+  }
+  
+  
   // MARK: - Properties
   
   let dimView = UIView().then {
     $0.isHidden = true
-    $0.backgroundColor = .black
-    $0.alpha = 0.5
+    $0.backgroundColor = Color.dimView
   }
   
   let activityIndicatorView = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
     $0.style = .large
-    $0.color = .systemOrange
+    $0.color = Color.activityIndicatorView
   }
   
   let cancelButton = UIButton(type: .system).then {
     $0.setImage(UIImage(systemName: "xmark"), for: .normal)
-    $0.tintColor = .systemOrange
+    $0.tintColor = Color.cancelButton
   }
   
   let nameTextField = UITextField().then {
@@ -55,15 +84,15 @@ final class SignupView: UIView, ViewSetup {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
-    $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
+    $0.titleLabel?.font = Font.signupButton
     
     $0.setTitle("Sign Up".localized, for: .normal)
     
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+    $0.setTitleColor(Color.signupButtonNormalTitle, for: .normal)
+    $0.setTitleColor(Color.signupButtonDisabledTitle, for: .disabled)
     
-    $0.setBackgroundColor(.systemOrange, for: .normal)
-    $0.setBackgroundColor(.lightGray, for: .disabled)
+    $0.setBackgroundColor(Color.signupButtonNormalBackground, for: .normal)
+    $0.setBackgroundColor(Color.signupButtonDisabledBackground, for: .disabled)
   }
   
   // MARK: - Life Cycle
@@ -96,7 +125,9 @@ final class SignupView: UIView, ViewSetup {
       dimView,
     ])
     
-    dimView.addSubview(activityIndicatorView)
+    dimView.addSubviews([
+      activityIndicatorView,
+    ])
   }
   
   func setUpLayout() {
@@ -107,27 +138,27 @@ final class SignupView: UIView, ViewSetup {
     activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
     
     nameTextField.snp.makeConstraints {
-      $0.top.equalTo(safeArea).inset(16)
-      $0.leading.trailing.equalToSuperview().inset(16)
-      $0.height.equalTo(50)
+      $0.top.equalTo(safeArea).inset(Metric.padding)
+      $0.leading.trailing.equalToSuperview().inset(Metric.padding)
+      $0.height.equalTo(Metric.height)
     }
     
     emailTextField.snp.makeConstraints {
-      $0.top.equalTo(nameTextField.snp.bottom).offset(8)
+      $0.top.equalTo(nameTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(nameTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     passwordTextField.snp.makeConstraints {
-      $0.top.equalTo(emailTextField.snp.bottom).offset(8)
+      $0.top.equalTo(emailTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(nameTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     signupButton.snp.makeConstraints {
-      $0.top.equalTo(passwordTextField.snp.bottom).offset(18)
+      $0.top.equalTo(passwordTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(nameTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
   }
 }
