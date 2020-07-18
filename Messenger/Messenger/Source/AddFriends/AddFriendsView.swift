@@ -9,22 +9,50 @@
 import UIKit
 
 final class AddFriendsView: UIView, ViewSetup {
+  
+  // MARK: - Constants
+  
+  private enum Metric {
+    static let padding = 16
+    
+    static let height = 50
+  }
+  
+  private enum Font {
+    static let searchFriendButton = UIFont.systemFont(ofSize: 24, weight: .bold)
+    
+    static let userNameLabel = UIFont.systemFont(ofSize: 22, weight: .medium)
+    
+    static let addFriendButton = UIFont.systemFont(ofSize: 18, weight: .bold)
+  }
+  
+  private enum Color {
+    static let dimViewBackground = UIColor.black.withAlphaComponent(0.5)
+    
+    static let activityIndicatorView = UIColor.systemOrange
+    
+    static let cancelButton = UIColor.systemOrange
+    
+    static let userProfileImageView = UIColor.systemOrange
+  }
+  
+  
   // MARK: - Properties
   
   let dimView = UIView().then {
     $0.isHidden = true
-    $0.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    $0.backgroundColor = Color.dimViewBackground
   }
   
   let activityIndicatorView = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
     $0.style = .large
-    $0.color = .systemOrange
+    $0.color = Color.activityIndicatorView
   }
   
   let cancelButton = UIButton(type: .system).then {
     $0.setImage(UIImage(systemName: "xmark"), for: .normal)
-    $0.tintColor = .systemOrange
+    $0.tintColor = Color.cancelButton
   }
   
   let friendsEmailTextField = UITextField().then {
@@ -35,46 +63,34 @@ final class AddFriendsView: UIView, ViewSetup {
     $0.placeholder = "Friend's email".localized
   }
   
-  let searchFriendButton = UIButton(type: .system).then {
+  let searchFriendButton = MSButton().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
-    $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
+    $0.titleLabel?.font = Font.searchFriendButton
     
     $0.setTitle("Search".localized, for: .normal)
-    
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
-    
-    $0.setBackgroundColor(.systemOrange, for: .normal)
-    $0.setBackgroundColor(.lightGray, for: .disabled)
   }
   
   let userProfileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
     $0.image = UIImage(systemName: "person.crop.square")
-    $0.tintColor = .systemOrange
+    $0.tintColor = Color.userProfileImageView
     $0.isHidden = true
   }
   
   let userNameLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 22, weight: .medium)
+    $0.font = Font.userNameLabel
     $0.textAlignment = .center
   }
   
-  let addFriendButton = UIButton(type: .system).then {
+  let addFriendButton = MSButton().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
-    $0.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+    $0.titleLabel?.font = Font.addFriendButton
     
     $0.setTitle("Add".localized, for: .normal)
-    
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
-    
-    $0.setBackgroundColor(.systemOrange, for: .normal)
-    $0.setBackgroundColor(.lightGray, for: .disabled)
     
     $0.isHidden = true
   }
@@ -110,7 +126,9 @@ final class AddFriendsView: UIView, ViewSetup {
       dimView,
     ])
     
-    dimView.addSubview(activityIndicatorView)
+    dimView.addSubviews([
+      activityIndicatorView,
+    ])
   }
   
   func setUpLayout() {
@@ -121,15 +139,15 @@ final class AddFriendsView: UIView, ViewSetup {
     activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
     
     friendsEmailTextField.snp.makeConstraints {
-      $0.top.equalTo(safeArea).offset(16)
-      $0.leading.trailing.equalTo(safeArea).inset(16)
-      $0.height.equalTo(50)
+      $0.top.equalTo(safeArea).offset(Metric.padding)
+      $0.leading.trailing.equalTo(safeArea).inset(Metric.padding)
+      $0.height.equalTo(Metric.height)
     }
     
     searchFriendButton.snp.makeConstraints {
-      $0.top.equalTo(friendsEmailTextField.snp.bottom).offset(8)
+      $0.top.equalTo(friendsEmailTextField.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(friendsEmailTextField)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     userProfileImageView.snp.makeConstraints {
@@ -139,16 +157,16 @@ final class AddFriendsView: UIView, ViewSetup {
     }
     
     userNameLabel.snp.makeConstraints {
-      $0.top.equalTo(userProfileImageView.snp.bottom).offset(16)
+      $0.top.equalTo(userProfileImageView.snp.bottom).offset(Metric.padding)
       $0.leading.trailing.equalTo(searchFriendButton)
-      $0.height.equalTo(50)
+      $0.height.equalTo(Metric.height)
     }
     
     addFriendButton.snp.makeConstraints {
-      $0.top.equalTo(userNameLabel.snp.bottom).offset(16)
+      $0.top.equalTo(userNameLabel.snp.bottom).offset(Metric.padding)
       $0.centerX.equalTo(userNameLabel)
       $0.width.equalTo(80)
-      $0.height.equalTo(40)
+      $0.height.equalTo(Metric.height)
     }
   }
 }
