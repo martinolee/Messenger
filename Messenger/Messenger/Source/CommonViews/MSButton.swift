@@ -44,6 +44,12 @@ class MSButton: UIButton {
     self.setBackgroundColor(Color.highlightedBackground, for: .highlighted)
   }
   
+  convenience init(title: String?) {
+    self.init()
+    
+    self.setTitle(title, for: .normal)
+  }
+  
   @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
