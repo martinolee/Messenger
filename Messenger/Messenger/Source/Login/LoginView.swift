@@ -27,14 +27,6 @@ final class LoginView: BaseView, ViewSetup {
     
     static let activityIndicatorView = UIColor.systemOrange
     
-    static let loginButtonNormalTitle = UIColor.white
-    
-    static let loginButtonDisabledTitle = UIColor.white.withAlphaComponent(0.5)
-    
-    static let loginButtonNormalBackground = UIColor.systemOrange
-    
-    static let loginButtonDisabledBackground = UIColor.lightGray
-    
     static let signupButtonTitle = UIColor.systemOrange
   }
   
@@ -67,19 +59,13 @@ final class LoginView: BaseView, ViewSetup {
     $0.placeholder = "Password".localized
   }
   
-  let loginButton = UIButton(type: .system).then {
+  let loginButton = MSButton().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
     $0.titleLabel?.font = Font.loginButtonFont
     
     $0.setTitle("Log In".localized, for: .normal)
-    
-    $0.setTitleColor(Color.loginButtonNormalTitle, for: .normal)
-    $0.setTitleColor(Color.loginButtonDisabledTitle, for: .disabled)
-    
-    $0.setBackgroundColor(Color.loginButtonNormalBackground, for: .normal)
-    $0.setBackgroundColor(Color.loginButtonDisabledBackground, for: .disabled)
   }
   
   let signupButton = UIButton(type: .system).then {
