@@ -12,6 +12,7 @@
 @import RxCocoa;
 @import RxDataSources;
 @import RxOptional;
+@import RxGesture;
 
 @import Kingfisher;
 
