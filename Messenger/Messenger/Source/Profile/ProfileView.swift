@@ -40,22 +40,14 @@ class ProfileView: UIView, ViewSetup {
     $0.setContentHuggingPriority(.fittingSizeLevel, for: .vertical)
   }
   
-  let messageButton = UIButton(type: .system).then {
+  let messageButton = MSButton().then {
     $0.clipsToBounds = true
     $0.layer.cornerRadius = 6
     
     $0.titleLabel?.font = .systemFont(ofSize: 24, weight: .bold)
     
     $0.setTitle("Chat".localized, for: .normal)
-    
-    $0.setTitleColor(.white, for: .normal)
-    $0.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
-    
-    $0.setBackgroundColor(.systemOrange, for: .normal)
-    $0.setBackgroundColor(.lightGray, for: .disabled)
   }
-  
-  let panGestureRecognizer = UIPanGestureRecognizer()
   
   // MARK: - Life Cycle
   
