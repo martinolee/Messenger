@@ -44,7 +44,7 @@ class MSButton: UIButton {
     self.setBackgroundColor(Color.highlightedBackground, for: .highlighted)
   }
   
-  convenience init(title: String?) {
+  convenience init(title: String? = nil) {
     self.init()
     
     self.setTitle(title, for: .normal)
