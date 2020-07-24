@@ -17,17 +17,13 @@ class MSButton: UIButton {
     
     static let disabledTitle = UIColor.white.withAlphaComponent(0.5)
     
-    static var highlightedTitle: UIColor {
-      normalTitle.withAlphaComponent(0.5)
-    }
+    static let highlightedTitle = UIColor.white.withAlphaComponent(0.7)
     
     static let normalBackground = UIColor.systemOrange
     
     static let disabledBackground = UIColor.lightGray
     
-    static var highlightedBackground: UIColor {
-      normalBackground.withAlphaComponent(0.5)
-    }
+    static var highlightedBackground = UIColor.systemOrange.withAlphaComponent(0.7)
   }
   
   
