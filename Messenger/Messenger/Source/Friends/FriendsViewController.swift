@@ -87,13 +87,13 @@ final class FriendsViewController: BaseViewController, View {
         cellIdentifier: FriendCell.identifier,
         cellType: FriendCell.self)
       ) { [weak self] index, friend, cell in
-        guard let self = self else { return }
+        guard self != nil else { return }
         
         if let friendUID = friend as? String {
           Observable.just(Void())
             .map { Reactor.Action.updateFriendAt(index, friendUID) }
             .bind(to: reactor.action)
-            .disposed(by: self.disposeBag)
+            .dispose()
         } else if let friend = friend as? User {
           cell.reactor = FriendCellReactor(friend: friend)
         }
