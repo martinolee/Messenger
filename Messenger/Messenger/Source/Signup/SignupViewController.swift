@@ -119,9 +119,7 @@ final class SignupViewController: BaseViewController, View {
     reactor.state.map { $0.signupResult }
       .filterNil()
       .distinctUntilChanged()
-      .subscribe(onNext: { [weak self] result in
-        guard let self = self else { return }
-        
+      .subscribe(onNext: { [unowned self] _ in
         self.dismiss(animated: true)
       })
       .disposed(by: disposeBag)
@@ -146,4 +144,3 @@ final class SignupViewController: BaseViewController, View {
 
   }
 }
-
