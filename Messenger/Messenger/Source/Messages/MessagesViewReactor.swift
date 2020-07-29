@@ -9,11 +9,8 @@
 import Foundation
 
 final class MessagesViewReactor: Reactor {
-  enum Action {
-  }
   
-  enum Mutation {
-  }
+ typealias Action = NoAction
   
   struct State {
   }
