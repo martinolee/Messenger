@@ -34,4 +34,30 @@ extension TabBar {
       return "Settings"
     }
   }
+  
+  var image: UIImage {
+    switch self {
+    case .friends:
+      return UIImage(systemName: "person")!
+    
+    case .messages:
+      return UIImage(systemName: "bubble.left")!
+      
+    case .settings:
+      return UIImage(systemName: "gear")!
+    }
+  }
+  
+  var selectedImage: UIImage {
+    switch self {
+    case .friends:
+      return UIImage(systemName: "person.fill")!
+    
+    case .messages:
+      return UIImage(systemName: "bubble.left.fill")!
+      
+    case .settings:
+      return UIImage(systemName: "gear")!
+    }
+  }
 }

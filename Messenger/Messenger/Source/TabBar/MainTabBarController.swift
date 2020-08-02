@@ -13,20 +13,20 @@ final class MainTabBarController: UITabBarController {
 
   let friendsViewController = NavigationController(TabBar.friends.viewController).then {
     $0.title = TabBar.friends.title.localized
-    $0.tabBarItem.image = UIImage(systemName: "person")
-    $0.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
+    $0.tabBarItem.image = TabBar.friends.image
+    $0.tabBarItem.selectedImage = TabBar.friends.selectedImage
   }
   
   let messagesViewController = NavigationController(TabBar.messages.viewController).then {
     $0.title = TabBar.messages.title.localized
-    $0.tabBarItem.image = UIImage(systemName: "bubble.left")
-    $0.tabBarItem.selectedImage = UIImage(systemName: "bubble.left.fill")
+    $0.tabBarItem.image = TabBar.messages.image
+    $0.tabBarItem.selectedImage = TabBar.messages.selectedImage
   }
   
   let settingsViewController = NavigationController(TabBar.settings.viewController).then {
     $0.title = TabBar.settings.title.localized
-    $0.tabBarItem.image = UIImage(systemName: "gear")
-    $0.tabBarItem.selectedImage = UIImage(systemName: "gear")
+    $0.tabBarItem.image = TabBar.settings.image
+    $0.tabBarItem.selectedImage = TabBar.settings.selectedImage
   }
   
   // MARK: - Life Cycle
