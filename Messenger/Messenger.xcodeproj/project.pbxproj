@@ -24,6 +24,7 @@
 		7284510124753690004D88CD /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510024753690004D88CD /* DatabaseService.swift */; };
 		7284510524755245004D88CD /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510424755245004D88CD /* UserService.swift */; };
 		728753F224C0768600EDFD4C /* MSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728753F124C0768600EDFD4C /* MSButton.swift */; };
+		72877B2924D97F8400139910 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877B2824D97F8400139910 /* Email.swift */; };
 		728A46C424726476002953DF /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728A46C324726476002953DF /* AuthService.swift */; };
 		728A46C724726921002953DF /* SignupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728A46C624726921002953DF /* SignupForm.swift */; };
 		728BA1702473CDFE009F8F8F /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728BA16F2473CDFE009F8F8F /* LoginForm.swift */; };
@@ -95,6 +96,7 @@
 		7284510024753690004D88CD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		7284510424755245004D88CD /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		728753F124C0768600EDFD4C /* MSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButton.swift; sourceTree = "<group>"; };
+		72877B2824D97F8400139910 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		728A46C324726476002953DF /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		728A46C624726921002953DF /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		728BA16F2473CDFE009F8F8F /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				72820D282476211B0071CCD2 /* User.swift */,
 				7215BEDE24781ED30018BB52 /* FriendsError.swift */,
 				7295D45D2478F8DA003D0028 /* RevsionedError.swift */,
+				72877B2824D97F8400139910 /* Email.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				72829990247E628D0072E963 /* FriendCellReactor.swift in Sources */,
 				720ACC0324800072003E6761 /* BaseView.swift in Sources */,
 				728D5D61246FD470006A1FB2 /* SignupViewReactor.swift in Sources */,
+				72877B2924D97F8400139910 /* Email.swift in Sources */,
 				728D5D69246FD49D006A1FB2 /* LoginViewController.swift in Sources */,
 				7295D45C2478E5E7003D0028 /* UITableView+Extensions.swift in Sources */,
 				720ACC052480007C003E6761 /* BaseViewController.swift in Sources */,
