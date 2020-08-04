@@ -11,9 +11,9 @@ import Foundation
 public struct SignupForm {
   var name: String?
   
-  var email: String?
+  var email: Email?
   
-  var password: String?
+  var password: Password?
 }
 
 extension SignupForm {
