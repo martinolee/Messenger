@@ -40,7 +40,7 @@ extension SignupForm {
   }
   
   var hasValidEmail: Bool {
-    email?.isValidEmail ?? false
+    email?.isValid ?? false
   }
   
   var hasValidPassword: Bool {

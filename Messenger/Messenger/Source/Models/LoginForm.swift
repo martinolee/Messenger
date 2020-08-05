@@ -16,7 +16,7 @@ public struct LoginForm {
 
 extension LoginForm {
   var hasValidForm: Bool {
-    guard let email = email, email.isValidEmail, let password = password else { return false }
+    guard let email = email, email.isValid, let password = password else { return false }
     
     return email.count > 0 && password.count >= 6
   }
