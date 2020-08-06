@@ -8,4 +8,11 @@
 
 import Foundation
 
+
 typealias Password = String
+
+extension Password {
+  var isValidPassword: Bool {
+    return self.count >= 6
+  }
+}

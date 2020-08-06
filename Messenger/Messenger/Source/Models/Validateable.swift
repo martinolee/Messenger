@@ -9,5 +9,7 @@
 import Foundation
 
 protocol Validateable {
-  var isValid: Bool { get }
+  var isValidEmail: Bool { get }
+  
+  var isValidPassword: Bool { get }
 }

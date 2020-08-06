@@ -40,12 +40,10 @@ extension SignupForm {
   }
   
   var hasValidEmail: Bool {
-    email?.isValid ?? false
+    return email?.isValidEmail ?? false
   }
   
   var hasValidPassword: Bool {
-    guard let password = password else { return false }
-    
-    return password.count >= 6
+    return password?.isValidPassword ?? false
   }
 }

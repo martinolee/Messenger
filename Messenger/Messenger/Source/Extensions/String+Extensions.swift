@@ -19,3 +19,6 @@ extension String {
     return self.hasPrefix(whitespace) || self.hasSuffix(whitespace)
   }
 }
+
+extension String: Validateable {
+}

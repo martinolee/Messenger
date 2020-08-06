@@ -61,7 +61,7 @@ final class AddFriendsViewReactor: Reactor {
       return .just(.setEmail(email))
       
     case .searchFriend:
-      guard !currentState.isSearchingUser, let email = currentState.email, email.isValid else { return .empty() }
+      guard !currentState.isSearchingUser, let email = currentState.email, email.isValidEmail else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setSearchingUser(true)),

@@ -62,7 +62,7 @@ final class LoginViewReactor: Reactor {
       guard !currentState.isLoggingIn else { return .empty() }
       guard
         let email = currentState.loginForm.email,
-        email.isValid,
+        email.isValidEmail,
         let password = currentState.loginForm.password
       else { return .empty() }
       

@@ -86,7 +86,7 @@ final class AddFriendsViewController: BaseViewController, View {
       .bind(to: addFriendsView.activityIndicatorView.rx.isAnimating)
       .disposed(by: disposeBag)
     
-    reactor.state.map { $0.email?.isValid ?? false }
+    reactor.state.map { $0.email?.isValidEmail ?? false }
       .distinctUntilChanged()
       .bind(to: addFriendsView.searchFriendButton.rx.isEnabled)
       .disposed(by: disposeBag)
