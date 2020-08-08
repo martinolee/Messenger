@@ -219,6 +219,22 @@
 			path = AddFriends;
 			sourceTree = "<group>";
 		};
+		72856BFF24DEEEE70002F6F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				728450F024750716004D88CD /* TabBar.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		72856C0024DEEF050002F6F5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				728BA1782473F739009F8F8F /* MainTabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		728753F024C0766E00EDFD4C /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,8 +272,8 @@
 		728BA1772473F724009F8F8F /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				728450F024750716004D88CD /* TabBar.swift */,
-				728BA1782473F739009F8F8F /* MainTabBarController.swift */,
+				72856BFF24DEEEE70002F6F5 /* Models */,
+				72856C0024DEEF050002F6F5 /* Controllers */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
