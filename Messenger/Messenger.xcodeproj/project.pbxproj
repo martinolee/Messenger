@@ -243,6 +243,38 @@
 			path = CommonViews;
 			sourceTree = "<group>";
 		};
+		7289FA6224E02D9B00CDDA76 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				728A46C624726921002953DF /* SignupForm.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7289FA6324E02DAD00CDDA76 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				728D5D62246FD478006A1FB2 /* SignupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7289FA6424E02F4E00CDDA76 /* Reactor */ = {
+			isa = PBXGroup;
+			children = (
+				728D5D60246FD470006A1FB2 /* SignupViewReactor.swift */,
+			);
+			path = Reactor;
+			sourceTree = "<group>";
+		};
+		7289FA6524E02F6B00CDDA76 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				728D5D5D246FD45D006A1FB2 /* SignupViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		728A46C224726449002953DF /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +288,6 @@
 		728A46C524726919002953DF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				728A46C624726921002953DF /* SignupForm.swift */,
 				728BA16F2473CDFE009F8F8F /* LoginForm.swift */,
 				728450FC24751516004D88CD /* Identifiable.swift */,
 				72820D282476211B0071CCD2 /* User.swift */,
@@ -404,9 +435,10 @@
 		728D5D5C246FD448006A1FB2 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				728D5D62246FD478006A1FB2 /* SignupView.swift */,
-				728D5D60246FD470006A1FB2 /* SignupViewReactor.swift */,
-				728D5D5D246FD45D006A1FB2 /* SignupViewController.swift */,
+				7289FA6224E02D9B00CDDA76 /* Models */,
+				7289FA6324E02DAD00CDDA76 /* Views */,
+				7289FA6424E02F4E00CDDA76 /* Reactor */,
+				7289FA6524E02F6B00CDDA76 /* ViewController */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
