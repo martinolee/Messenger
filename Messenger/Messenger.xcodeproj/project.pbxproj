@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		720ACC0324800072003E6761 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720ACC0224800072003E6761 /* BaseView.swift */; };
 		720ACC052480007C003E6761 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720ACC042480007C003E6761 /* BaseViewController.swift */; };
+		720BE59A24E57C98005ADB73 /* SignupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BE59924E57C98005ADB73 /* SignupService.swift */; };
 		72104FEB249A0636004AC964 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72104FEA249A0636004AC964 /* StringExtensionsTests.swift */; };
 		7215BEDF24781ED30018BB52 /* FriendsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7215BEDE24781ED30018BB52 /* FriendsError.swift */; };
 		72277EEA24827A84001ECA31 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72277EE924827A84001ECA31 /* BaseCell.swift */; };
@@ -81,6 +82,7 @@
 		390347F65D6478E363FA7C8A /* Pods-Messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.release.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.release.xcconfig"; sourceTree = "<group>"; };
 		720ACC0224800072003E6761 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		720ACC042480007C003E6761 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		720BE59924E57C98005ADB73 /* SignupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupService.swift; sourceTree = "<group>"; };
 		72104FE02499F4F8004AC964 /* MessengerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessengerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		72104FE42499F4F8004AC964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72104FEA249A0636004AC964 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
@@ -184,6 +186,21 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		720BE59724E57C3A005ADB73 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				720BE59824E57C47005ADB73 /* AuthManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		720BE59824E57C47005ADB73 /* AuthManager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AuthManager;
+			sourceTree = "<group>";
+		};
 		72104FE12499F4F8004AC964 /* MessengerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +298,7 @@
 				728A46C324726476002953DF /* AuthService.swift */,
 				7284510024753690004D88CD /* DatabaseService.swift */,
 				7284510424755245004D88CD /* UserService.swift */,
+				720BE59924E57C98005ADB73 /* SignupService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -407,6 +425,7 @@
 				728D5D5C246FD448006A1FB2 /* Signup */,
 				728A46C524726919002953DF /* Models */,
 				728A46C224726449002953DF /* Services */,
+				720BE59724E57C3A005ADB73 /* Managers */,
 				728D5D74246FE2CF006A1FB2 /* Extensions */,
 				728753F024C0766E00EDFD4C /* CommonViews */,
 				728D5D6A246FD8D6006A1FB2 /* Setups */,
@@ -686,6 +705,7 @@
 				728450FD24751516004D88CD /* Identifiable.swift in Sources */,
 				7295D4592478D6A9003D0028 /* ProfileViewController.swift in Sources */,
 				728BA1892473FD33009F8F8F /* SettingsViewController.swift in Sources */,
+				720BE59A24E57C98005ADB73 /* SignupService.swift in Sources */,
 				728D5D5E246FD45D006A1FB2 /* SignupViewController.swift in Sources */,
 				728BA17D2473FB73009F8F8F /* FriendsView.swift in Sources */,
 				728BA17F2473FB7C009F8F8F /* MessagesView.swift in Sources */,
