@@ -1,5 +1,5 @@
 //
-//  UserService.swift
+//  UserManager.swift
 //  Messenger
 //
 //  Created by Soohan Lee on 2020/05/20.
@@ -10,8 +10,8 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 
-public final class UserService {
-  static let shared = UserService()
+public final class UserManager {
+  static let shared = UserManager()
   
   private let auth = Auth.auth()
   

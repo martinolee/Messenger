@@ -51,7 +51,7 @@ final class FriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setFetchingFriendUIDs(true)),
         
-        UserService.shared.fetchFriendUIDs()
+        UserManager.shared.fetchFriendUIDs()
           .map(Mutation.setFriendUIDs),
         
         Observable.just(.setFetchingFriendUIDs(false)),
@@ -63,7 +63,7 @@ final class FriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setUpdatingFriends((index, true))),
         
-        UserService.shared.getUser(byUID: friendUID)
+        UserManager.shared.getUser(byUID: friendUID)
           .map { Mutation.setFriend(index, $0) },
         
         Observable.just(.setUpdatingFriends((index, false))),

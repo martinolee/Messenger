@@ -66,7 +66,7 @@ final class AddFriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setSearchingUser(true)),
         
-        UserService.shared.getUser(byEmail: email)
+        UserManager.shared.getUser(byEmail: email)
           .map { .setSearchedUser($0) }
           .catchError { .just(.setSearchingUserError($0)) },
         
@@ -79,7 +79,7 @@ final class AddFriendsViewReactor: Reactor {
       return Observable.concat([
         Observable.just(.setAddingFriend(true)),
         
-        UserService.shared.addFriend(byUID: friendUID)
+        UserManager.shared.addFriend(byUID: friendUID)
           .map { .setAddedFriend($0) }
           .catchError { .just(.setAddingFriendError($0)) },
           

@@ -23,7 +23,7 @@
 		728450FD24751516004D88CD /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450FC24751516004D88CD /* Identifiable.swift */; };
 		728450FF24751530004D88CD /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450FE24751530004D88CD /* UITableViewCell+Extensions.swift */; };
 		7284510124753690004D88CD /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510024753690004D88CD /* DatabaseService.swift */; };
-		7284510524755245004D88CD /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510424755245004D88CD /* UserService.swift */; };
+		7284510524755245004D88CD /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510424755245004D88CD /* UserManager.swift */; };
 		728753F224C0768600EDFD4C /* MSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728753F124C0768600EDFD4C /* MSButton.swift */; };
 		72877B2924D97F8400139910 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877B2824D97F8400139910 /* Email.swift */; };
 		72877B2B24D9800300139910 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877B2A24D9800300139910 /* Password.swift */; };
@@ -98,7 +98,7 @@
 		728450FC24751516004D88CD /* Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
 		728450FE24751530004D88CD /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		7284510024753690004D88CD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
-		7284510424755245004D88CD /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		7284510424755245004D88CD /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		728753F124C0768600EDFD4C /* MSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButton.swift; sourceTree = "<group>"; };
 		72877B2824D97F8400139910 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		72877B2A24D9800300139910 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
@@ -189,6 +189,7 @@
 		720BE59724E57C3A005ADB73 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				72BD57AC24E958EE00ADDB2B /* UserManager */,
 				720BE59824E57C47005ADB73 /* AuthManager */,
 			);
 			path = Managers;
@@ -297,7 +298,6 @@
 			children = (
 				728A46C324726476002953DF /* AuthService.swift */,
 				7284510024753690004D88CD /* DatabaseService.swift */,
-				7284510424755245004D88CD /* UserService.swift */,
 				720BE59924E57C98005ADB73 /* SignupService.swift */,
 			);
 			path = Services;
@@ -495,6 +495,14 @@
 				7295D4582478D6A9003D0028 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		72BD57AC24E958EE00ADDB2B /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				7284510424755245004D88CD /* UserManager.swift */,
+			);
+			path = UserManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -718,7 +726,7 @@
 				7295D46024794297003D0028 /* FriendCell.swift in Sources */,
 				728450F4247509D5004D88CD /* AddFriendsView.swift in Sources */,
 				728D5D67246FD492006A1FB2 /* LoginViewReactor.swift in Sources */,
-				7284510524755245004D88CD /* UserService.swift in Sources */,
+				7284510524755245004D88CD /* UserManager.swift in Sources */,
 				728BA1872473FD2B009F8F8F /* SettingsView.swift in Sources */,
 				728450FF24751530004D88CD /* UITableViewCell+Extensions.swift in Sources */,
 				728D5D81246FF685006A1FB2 /* String+Extensions.swift in Sources */,
