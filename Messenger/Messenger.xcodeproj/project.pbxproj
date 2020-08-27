@@ -13,6 +13,7 @@
 		72104FEB249A0636004AC964 /* StringExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72104FEA249A0636004AC964 /* StringExtensionsTests.swift */; };
 		7215BEDF24781ED30018BB52 /* FriendsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7215BEDE24781ED30018BB52 /* FriendsError.swift */; };
 		72277EEA24827A84001ECA31 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72277EE924827A84001ECA31 /* BaseCell.swift */; };
+		724AB09524F7D8F800DFF632 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AB09424F7D8F800DFF632 /* AppDependency.swift */; };
 		72820D292476211B0071CCD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72820D282476211B0071CCD2 /* User.swift */; };
 		72829990247E628D0072E963 /* FriendCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7282998F247E628D0072E963 /* FriendCellReactor.swift */; };
 		728450F124750716004D88CD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450F024750716004D88CD /* TabBar.swift */; };
@@ -88,6 +89,7 @@
 		72104FEA249A0636004AC964 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		7215BEDE24781ED30018BB52 /* FriendsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsError.swift; sourceTree = "<group>"; };
 		72277EE924827A84001ECA31 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		724AB09424F7D8F800DFF632 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		72820D282476211B0071CCD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7282998F247E628D0072E963 /* FriendCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCellReactor.swift; sourceTree = "<group>"; };
 		728450F024750716004D88CD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 			isa = PBXGroup;
 			children = (
 				728D5D41246FD093006A1FB2 /* AppDelegate.swift */,
+				724AB09424F7D8F800DFF632 /* AppDependency.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				72877B2D24DAEFE200139910 /* Validateable.swift in Sources */,
 				728A46C724726921002953DF /* SignupForm.swift in Sources */,
 				7295D45E2478F8DA003D0028 /* RevsionedError.swift in Sources */,
+				724AB09524F7D8F800DFF632 /* AppDependency.swift in Sources */,
 				728D5D76246FE2F9006A1FB2 /* UIView+Extensions.swift in Sources */,
 				728D5D65246FD48B006A1FB2 /* LoginView.swift in Sources */,
 				728D5D63246FD478006A1FB2 /* SignupView.swift in Sources */,
