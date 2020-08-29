@@ -82,9 +82,15 @@ final class ProfileViewController: BaseViewController, View {
     reactor.state.map { $0.profileImageURL }
       .distinctUntilChanged()
       .subscribe(onNext: { [weak self] profileImageURL in
-        guard let self = self, let placeholder = UIImage(systemName: "person.crop.square") else { return }
+        guard
+          let self = self,
+          let placeholder = UIImage(systemName: "person.crop.square")
+        else { return }
         
-        self.profileView.profileImageView.kf.setImage(with: profileImageURL, placeholder: placeholder)
+        self.profileView.profileImageView.kf.setImage(
+          with: profileImageURL,
+          placeholder: placeholder
+        )
       })
       .disposed(by: disposeBag)
     

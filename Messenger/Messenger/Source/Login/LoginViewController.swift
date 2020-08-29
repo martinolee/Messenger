@@ -102,7 +102,7 @@ final class LoginViewController: BaseViewController, View {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        appDelegate.setUpRootViewControllerForUserLoginCondition()
+//        appDelegate.setUpRootViewControllerForUserLoginCondition()
         })
       .disposed(by: disposeBag)
     

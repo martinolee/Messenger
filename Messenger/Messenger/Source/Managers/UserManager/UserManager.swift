@@ -22,7 +22,8 @@ public final class UserManager {
       self.usersDB.whereField("email", isEqualTo: email).getDocuments { snapshot, error in
         if let error = error {
           observer.onError(error)
-        } else if let userDictionary = snapshot?.documents.first?.data(), let user = User(userDictionary) {
+        } else if let userDictionary = snapshot?.documents.first?.data(),
+          let user = User(userDictionary) {
           observer.onNext(user)
         } else {
           observer.onError(FriendsError.userNotFound)
@@ -64,7 +65,7 @@ public final class UserManager {
           } else {
             observer.onNext(userUID)
           }
-
+          
           observer.onCompleted()
         }
       } else {

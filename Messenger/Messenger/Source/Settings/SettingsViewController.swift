@@ -52,7 +52,7 @@ final class SettingsViewController: BaseViewController, View {
           do {
             try AuthService.shared.logOut()
             
-            appDelegate.setUpRootViewControllerForUserLoginCondition()
+//            appDelegate.setUpRootViewControllerForUserLoginCondition()
           } catch {
             print(error.localizedDescription)
           }

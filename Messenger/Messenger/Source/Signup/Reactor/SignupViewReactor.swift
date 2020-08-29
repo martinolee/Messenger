@@ -69,7 +69,10 @@ final class SignupViewReactor: Reactor {
       return Observable.just(.setPassword(password))
       
     case .signUp:
-      guard !currentState.isCreatingUser && currentState.signupForm.isFullyFormed else { return .empty() }
+      guard
+        !currentState.isCreatingUser &&
+          currentState.signupForm.isFullyFormed
+      else { return .empty() }
       guard
         let name = currentState.signupForm.name,
         let email = currentState.signupForm.email,

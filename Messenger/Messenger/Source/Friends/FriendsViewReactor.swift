@@ -58,7 +58,9 @@ final class FriendsViewReactor: Reactor {
       ])
       
     case .updateFriendAt(let index, let friendUID):
-      guard !currentState.updatingFriends.contains(where: { $0.index == index }) else { return .empty() }
+      guard
+        !currentState.updatingFriends.contains(where: { $0.index == index })
+      else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setUpdatingFriends((index, true))),

@@ -61,7 +61,11 @@ final class AddFriendsViewReactor: Reactor {
       return .just(.setEmail(email))
       
     case .searchFriend:
-      guard !currentState.isSearchingUser, let email = currentState.email, email.isValidEmail else { return .empty() }
+      guard
+        !currentState.isSearchingUser,
+        let email = currentState.email,
+        email.isValidEmail
+      else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setSearchingUser(true)),
@@ -74,7 +78,10 @@ final class AddFriendsViewReactor: Reactor {
       ])
       
     case .addFriend:
-      guard !currentState.isAddingFriend, let friendUID = currentState.searchedUser?.uid else { return .empty() }
+      guard
+        !currentState.isAddingFriend,
+        let friendUID = currentState.searchedUser?.uid
+      else { return .empty() }
       
       return Observable.concat([
         Observable.just(.setAddingFriend(true)),

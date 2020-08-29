@@ -28,8 +28,8 @@ public final class AuthService {
         } else if let result = result {
           observer.onNext(result)
           
-          DatabaseService.shared.addNewUser(uid: result.user.uid, name: name, email: email) { error in
-            if let error = error {
+          DatabaseService.shared.addNewUser(uid: result.user.uid, name: name, email: email) {
+            if let error = $0 {
               observer.onError(error)
             }
           }

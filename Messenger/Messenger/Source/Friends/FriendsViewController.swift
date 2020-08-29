@@ -66,7 +66,8 @@ final class FriendsViewController: BaseViewController, View {
       .subscribe(onNext: { [weak self] index in
         guard
           let self = self,
-          let friendCellReactor = (self.friendsView.friendsTableView.cellForRow(at: index) as? FriendCell)?.reactor
+          let friendCell = self.friendsView.friendsTableView.cellForRow(at: index) as? FriendCell,
+          let friendCellReactor = friendCell.reactor
         else { return }
         let profileViewReactor = reactor.reactorForProfile(friendCellReactor)
         

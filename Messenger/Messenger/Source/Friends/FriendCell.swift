@@ -89,7 +89,10 @@ final class FriendCell: BaseCell, View {
       .subscribe(onNext: { [weak self] profileImageURL in
         guard let self = self else { return }
         
-        self.profileImageView.kf.setImage(with: profileImageURL, placeholder: UIImage(systemName: "person.crop.square"))
+        self.profileImageView.kf.setImage(
+          with: profileImageURL,
+          placeholder: UIImage(systemName: "person.crop.square")
+        )
       })
       .disposed(by: disposeBag)
     
