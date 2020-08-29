@@ -6,50 +6,28 @@
 //  Copyright © 2020 Soohan Lee. All rights reserved.
 //
 
-#if DEBUG
-import Gedatsu;
-#endif
-
 import UIKit
-import Firebase
+
 
 @UIApplicationMain
-
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
+final class AppDelegate: UIResponder, UIApplicationDelegate {
   
-  var rootViewController: UIViewController? {
-    get {
-      window?.rootViewController
-    }
-    
-    set {
-      window?.rootViewController = newValue
-    }
-  }
-  
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    configureDebug()
-    FirebaseApp.configure()
-    setUpWindow()
-    
+  func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
     return true
   }
   
-  private func setUpWindow() {
-    window = UIWindow(frame: UIScreen.main.bounds)
-    
-    setUpRootViewControllerForUserLoginCondition()
-    window?.makeKeyAndVisible()
+  
+  // MARK: - UISceneSession Lifecycle
+  
+  func application(
+    _ application: UIApplication,
+    configurationForConnecting connectingSceneSession: UISceneSession,
+    options: UIScene.ConnectionOptions
+  ) -> UISceneConfiguration {
+    return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
   }
   
-  func setUpRootViewControllerForUserLoginCondition() {
-    rootViewController = AuthService.shared.isUserLoggedIn ? MainTabBarController() : LoginViewController()
-  }
-  
-  private func configureDebug() {
-    #if DEBUG
-    Gedatsu.open()
-    #endif
-  }
 }

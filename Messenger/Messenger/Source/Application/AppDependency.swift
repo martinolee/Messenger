@@ -11,4 +11,5 @@ import Foundation
 struct AppDependency {
   
   let window: UIWindow
+  let configureSDKs: () -> Void
 }

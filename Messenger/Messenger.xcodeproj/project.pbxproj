@@ -15,6 +15,7 @@
 		72277EEA24827A84001ECA31 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72277EE924827A84001ECA31 /* BaseCell.swift */; };
 		724AB09524F7D8F800DFF632 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 724AB09424F7D8F800DFF632 /* CompositionRoot.swift */; };
 		7281147024F9200300F6A75D /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281146F24F9200300F6A75D /* AppDependency.swift */; };
+		7281147424FA476C00F6A75D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281147324FA476C00F6A75D /* SceneDelegate.swift */; };
 		72820D292476211B0071CCD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72820D282476211B0071CCD2 /* User.swift */; };
 		72829990247E628D0072E963 /* FriendCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7282998F247E628D0072E963 /* FriendCellReactor.swift */; };
 		728450F124750716004D88CD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450F024750716004D88CD /* TabBar.swift */; };
@@ -92,6 +93,7 @@
 		72277EE924827A84001ECA31 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		724AB09424F7D8F800DFF632 /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		7281146F24F9200300F6A75D /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		7281147324FA476C00F6A75D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		72820D282476211B0071CCD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7282998F247E628D0072E963 /* FriendCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCellReactor.swift; sourceTree = "<group>"; };
 		728450F024750716004D88CD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				728D5D41246FD093006A1FB2 /* AppDelegate.swift */,
+				7281147324FA476C00F6A75D /* SceneDelegate.swift */,
 				7281146F24F9200300F6A75D /* AppDependency.swift */,
 				724AB09424F7D8F800DFF632 /* CompositionRoot.swift */,
 			);
@@ -726,6 +729,7 @@
 				728BA17D2473FB73009F8F8F /* FriendsView.swift in Sources */,
 				728BA17F2473FB7C009F8F8F /* MessagesView.swift in Sources */,
 				728D5D42246FD093006A1FB2 /* AppDelegate.swift in Sources */,
+				7281147424FA476C00F6A75D /* SceneDelegate.swift in Sources */,
 				728BA1702473CDFE009F8F8F /* LoginForm.swift in Sources */,
 				728D5D6C246FD90F006A1FB2 /* ViewSetup.swift in Sources */,
 				72820D292476211B0071CCD2 /* User.swift in Sources */,
