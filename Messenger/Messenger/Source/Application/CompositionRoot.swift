@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Firebase
 #if DEBUG
 import Gedatsu
 #endif
@@ -25,6 +26,7 @@ final class CompositionRoot {
   }
   
   static func configureSDKs() {
+    FirebaseApp.configure()
     #if DEBUG
     Gedatsu.open()
     #endif
