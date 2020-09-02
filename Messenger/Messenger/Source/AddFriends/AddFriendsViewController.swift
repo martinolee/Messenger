@@ -26,10 +26,10 @@ final class AddFriendsViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = AddFriendsViewReactor()
     
     view.addSubview(addFriendsView)

@@ -25,11 +25,11 @@ final class SettingsViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
     self.title = TabBar.settings.title.localized
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = SettingsViewReactor()
     
     view.addSubview(settingsView)

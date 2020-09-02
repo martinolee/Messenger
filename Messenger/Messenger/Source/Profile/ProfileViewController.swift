@@ -33,10 +33,10 @@ final class ProfileViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     view.addSubview(profileView)
     profileView.snp.makeConstraints { $0.edges.equalToSuperview() }
   }

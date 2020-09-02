@@ -27,11 +27,11 @@ final class FriendsViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
     self.title = TabBar.friends.title.localized
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = FriendsViewReactor()
     
     view.addSubview(friendsView)

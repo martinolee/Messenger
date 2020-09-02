@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, ViewControllerSetup {
+class BaseViewController: UIViewController {
   // MARK: - Properties
   
   var disposeBag = DisposeBag()
@@ -26,11 +26,23 @@ class BaseViewController: UIViewController, ViewControllerSetup {
   }
   
   
-  // MARK: - Setup
+  // MARK: Layout Constraints
   
-  func setUpAttribute() {
+  private(set) var didSetupConstraints = false
+
+  override func viewDidLoad() {
+    self.view.setNeedsUpdateConstraints()
   }
-  
-  func setUpRootView() {
+
+  override func updateViewConstraints() {
+    if !self.didSetupConstraints {
+      self.setupConstraints()
+      self.didSetupConstraints = true
+    }
+    super.updateViewConstraints()
+  }
+
+  func setupConstraints() {
+    // Override point
   }
 }

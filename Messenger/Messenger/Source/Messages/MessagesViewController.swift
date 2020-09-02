@@ -23,11 +23,11 @@ final class MessagesViewController: BaseViewController, View {
     setUpRootView()
   }
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
     self.title = TabBar.messages.title.localized
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = MessagesViewReactor()
     
     view.addSubview(messagesView)

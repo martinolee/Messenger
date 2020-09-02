@@ -26,10 +26,10 @@ final class SignupViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = SignupViewReactor()
     
     view.addSubview(signupView)

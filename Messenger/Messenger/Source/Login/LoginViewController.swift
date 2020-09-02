@@ -25,10 +25,10 @@ final class LoginViewController: BaseViewController, View {
   
   // MARK: - Setup
   
-  override func setUpAttribute() {
+  func setUpAttribute() {
   }
   
-  override func setUpRootView() {
+  func setUpRootView() {
     self.reactor = LoginViewReactor()
 
     view.addSubview(loginView)
