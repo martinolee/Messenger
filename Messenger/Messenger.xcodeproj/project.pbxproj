@@ -27,6 +27,7 @@
 		728450FF24751530004D88CD /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450FE24751530004D88CD /* UITableViewCell+Extensions.swift */; };
 		7284510124753690004D88CD /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510024753690004D88CD /* DatabaseService.swift */; };
 		7284510524755245004D88CD /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7284510424755245004D88CD /* UserManager.swift */; };
+		7285FD3724FFE19300028731 /* MainTabBarViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7285FD3624FFE19300028731 /* MainTabBarViewReactor.swift */; };
 		728753F224C0768600EDFD4C /* MSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728753F124C0768600EDFD4C /* MSButton.swift */; };
 		72877B2924D97F8400139910 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877B2824D97F8400139910 /* Email.swift */; };
 		72877B2B24D9800300139910 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72877B2A24D9800300139910 /* Password.swift */; };
@@ -105,6 +106,7 @@
 		728450FE24751530004D88CD /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		7284510024753690004D88CD /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		7284510424755245004D88CD /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		7285FD3624FFE19300028731 /* MainTabBarViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewReactor.swift; sourceTree = "<group>"; };
 		728753F124C0768600EDFD4C /* MSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSButton.swift; sourceTree = "<group>"; };
 		72877B2824D97F8400139910 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
 		72877B2A24D9800300139910 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				728BA1782473F739009F8F8F /* MainTabBarController.swift */,
+				7285FD3624FFE19300028731 /* MainTabBarViewReactor.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -723,6 +726,7 @@
 				72877B2B24D9800300139910 /* Password.swift in Sources */,
 				728450FD24751516004D88CD /* Identifiable.swift in Sources */,
 				7295D4592478D6A9003D0028 /* ProfileViewController.swift in Sources */,
+				7285FD3724FFE19300028731 /* MainTabBarViewReactor.swift in Sources */,
 				728BA1892473FD33009F8F8F /* SettingsViewController.swift in Sources */,
 				720BE59A24E57C98005ADB73 /* SignupService.swift in Sources */,
 				728D5D5E246FD45D006A1FB2 /* SignupViewController.swift in Sources */,
