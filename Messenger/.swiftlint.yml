@@ -21,5 +21,4 @@ force_try: warning
 
 excluded:
 - Pods
-- Messenger/Source/Application/AppDelegate.swift
 - Messenger/Source/Extensions
