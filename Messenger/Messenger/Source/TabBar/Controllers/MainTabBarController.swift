@@ -8,43 +8,42 @@
 
 import UIKit
 
-final class MainTabBarController: UITabBarController {
-  // MARK: - Properties
+import ReactorKit
+import RxSwift
+import RxCocoa
 
-  let friendsViewController = NavigationController(TabBar.friends.viewController).then {
-    $0.title = TabBar.friends.title.localized
-    $0.tabBarItem.image = TabBar.friends.image
-    $0.tabBarItem.selectedImage = TabBar.friends.selectedImage
+
+final class MainTabBarController: UITabBarController, View {
+  
+  // MARK: - Properties
+  
+  var disposeBag = DisposeBag()
+  
+  
+  // MARK: - Initialization
+  
+  init(
+    reactor: MainTabBarViewReactor,
+    friendsViewController: FriendsViewController,
+    messagesViewController: MessagesViewController,
+    settingsViewController: SettingsViewController
+  ) {
+    defer { self.reactor = reactor }
+    super.init(nibName: nil, bundle: nil)
+    self.viewControllers = [friendsViewController, messagesViewController, settingsViewController]
+      .map({ viewControlller -> NavigationController in
+        return NavigationController(viewControlller)
+      })
   }
   
-  let messagesViewController = NavigationController(TabBar.messages.viewController).then {
-    $0.title = TabBar.messages.title.localized
-    $0.tabBarItem.image = TabBar.messages.image
-    $0.tabBarItem.selectedImage = TabBar.messages.selectedImage
+  @available(*, unavailable)
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
   
-  let settingsViewController = NavigationController(TabBar.settings.viewController).then {
-    $0.title = TabBar.settings.title.localized
-    $0.tabBarItem.image = TabBar.settings.image
-    $0.tabBarItem.selectedImage = TabBar.settings.selectedImage
-  }
   
-  // MARK: - Life Cycle
+  // MARK: - Bind
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    setUpAttribute()
-    setUpViewControllers()
-  }
-  
-  private func setUpAttribute() {
-    tabBar.tintColor = .systemOrange
-  }
-  
-  private func setUpViewControllers() {
-    let viewControllers = [friendsViewController, messagesViewController, settingsViewController]
-    
-    self.viewControllers = viewControllers
+  func bind(reactor: MainTabBarViewReactor) {
   }
 }

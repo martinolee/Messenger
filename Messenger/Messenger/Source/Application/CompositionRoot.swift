@@ -19,6 +19,34 @@ final class CompositionRoot {
     let window = UIWindow(windowScene: windowScene)
     window.makeKeyAndVisible()
     
+    let presentLoginScreen: () -> Void = {
+      let loginViewReactor = LoginViewReactor()
+      let loginViewController = LoginViewController(
+        reactor: loginViewReactor
+      )
+      
+      window.rootViewController = loginViewController
+    }
+    let presentMainScreen: () -> Void = {
+      let mainTabBarReactor = MainTabBarViewReactor()
+      let mainTabBarController = MainTabBarController(
+        reactor: mainTabBarReactor,
+        friendsViewController: FriendsViewController(),
+        messagesViewController: MessagesViewController(),
+        settingsViewController: SettingsViewController()
+      )
+      
+      window.rootViewController = mainTabBarController
+    }
+    
+    let splashViewReactor = SplashViewReactor()
+    let splashViewController = SplashViewController(
+      reactor: splashViewReactor,
+      presentLoginScreen: presentLoginScreen,
+      presentMainScreen: presentMainScreen
+    )
+    window.rootViewController = splashViewController
+    
     return AppDependency(
       window: window,
       configureSDKs: self.configureSDKs

@@ -9,9 +9,20 @@
 import UIKit
 
 final class LoginViewController: BaseViewController, View {
+  
   // MARK: - Properties
   
   let loginView = LoginView()
+  
+  
+  // MARK: - Initialization
+  
+  init(
+    reactor: LoginViewReactor
+  ) {
+    defer { self.reactor = reactor }
+    super.init()
+  }
   
   
   // MARK: - Life Cycle
@@ -29,8 +40,6 @@ final class LoginViewController: BaseViewController, View {
   }
   
   func setUpRootView() {
-    self.reactor = LoginViewReactor()
-
     view.addSubview(loginView)
     loginView.snp.makeConstraints { $0.edges.equalToSuperview() }
   }

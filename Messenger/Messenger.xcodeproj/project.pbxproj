@@ -18,6 +18,8 @@
 		7281147424FA476C00F6A75D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7281147324FA476C00F6A75D /* SceneDelegate.swift */; };
 		72820D292476211B0071CCD2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72820D282476211B0071CCD2 /* User.swift */; };
 		72829990247E628D0072E963 /* FriendCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7282998F247E628D0072E963 /* FriendCellReactor.swift */; };
+		7282DA7E25012F8C000D2367 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7282DA7D25012F8C000D2367 /* SplashViewController.swift */; };
+		7282DA8125012F9E000D2367 /* SplashViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7282DA8025012F9E000D2367 /* SplashViewReactor.swift */; };
 		728450F124750716004D88CD /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450F024750716004D88CD /* TabBar.swift */; };
 		728450F4247509D5004D88CD /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450F3247509D5004D88CD /* AddFriendsView.swift */; };
 		728450F6247509DD004D88CD /* AddFriendsViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728450F5247509DD004D88CD /* AddFriendsViewReactor.swift */; };
@@ -97,6 +99,8 @@
 		7281147324FA476C00F6A75D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		72820D282476211B0071CCD2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7282998F247E628D0072E963 /* FriendCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCellReactor.swift; sourceTree = "<group>"; };
+		7282DA7D25012F8C000D2367 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		7282DA8025012F9E000D2367 /* SplashViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewReactor.swift; sourceTree = "<group>"; };
 		728450F024750716004D88CD /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		728450F3247509D5004D88CD /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		728450F5247509DD004D88CD /* AddFriendsViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewReactor.swift; sourceTree = "<group>"; };
@@ -233,6 +237,23 @@
 				72104FE42499F4F8004AC964 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7282DA7B25012F63000D2367 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				7282DA7C25012F7E000D2367 /* ViewControllers */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		7282DA7C25012F7E000D2367 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7282DA8025012F9E000D2367 /* SplashViewReactor.swift */,
+				7282DA7D25012F8C000D2367 /* SplashViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		728450F2247509C4004D88CD /* AddFriends */ = {
@@ -424,6 +445,7 @@
 			isa = PBXGroup;
 			children = (
 				728D5D58246FD11B006A1FB2 /* Application */,
+				7282DA7B25012F63000D2367 /* Splash */,
 				728BA1772473F724009F8F8F /* TabBar */,
 				728BA17A2473FAD6009F8F8F /* Friends */,
 				7295D4512478D649003D0028 /* Profile */,
@@ -694,6 +716,7 @@
 			files = (
 				728BA1742473E72D009F8F8F /* UIButton+Extensions.swift in Sources */,
 				72877B2D24DAEFE200139910 /* Validateable.swift in Sources */,
+				7282DA8125012F9E000D2367 /* SplashViewReactor.swift in Sources */,
 				728A46C724726921002953DF /* SignupForm.swift in Sources */,
 				7295D45E2478F8DA003D0028 /* RevsionedError.swift in Sources */,
 				724AB09524F7D8F800DFF632 /* CompositionRoot.swift in Sources */,
@@ -725,6 +748,7 @@
 				728450F6247509DD004D88CD /* AddFriendsViewReactor.swift in Sources */,
 				72877B2B24D9800300139910 /* Password.swift in Sources */,
 				728450FD24751516004D88CD /* Identifiable.swift in Sources */,
+				7282DA7E25012F8C000D2367 /* SplashViewController.swift in Sources */,
 				7295D4592478D6A9003D0028 /* ProfileViewController.swift in Sources */,
 				7285FD3724FFE19300028731 /* MainTabBarViewReactor.swift in Sources */,
 				728BA1892473FD33009F8F8F /* SettingsViewController.swift in Sources */,
