@@ -8,6 +8,11 @@
 
 import UIKit
 
+import ReactorKit
+import RxSwift
+import RxCocoa
+import RxViewController
+
 
 final class SplashViewController: BaseViewController, View {
   
@@ -35,5 +40,24 @@ final class SplashViewController: BaseViewController, View {
   
   func bind(reactor: SplashViewReactor) {
     
+    // Action
+    
+    self.rx.viewDidAppear
+      .map { _ in Reactor.Action.checkIfAuthenticated }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
+    
+    
+    // State
+    
+    self.reactor?.state.map { $0.isAuthenticated }
+      .filterNil()
+      .distinctUntilChanged()
+      .subscribe(onNext: { [weak self] isAuthenticated in
+        isAuthenticated
+          ? self?.presentMainScreen()
+          : self?.presentLoginScreen()
+      })
+      .disposed(by: disposeBag)
   }
 }

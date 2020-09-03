@@ -23,10 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   ) {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     
-    dependency = dependency ?? CompositionRoot.resolve(for: windowScene)
-    dependency.configureSDKs()
-    
-    window = dependency.window
+    self.dependency = self.dependency ?? CompositionRoot.resolve(for: windowScene)
+    self.dependency.configureSDKs()
+    self.window = self.dependency.window
   }
   
 }
