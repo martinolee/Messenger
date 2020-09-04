@@ -28,14 +28,25 @@ final class CompositionRoot {
       window.rootViewController = loginViewController
     }
     let presentMainScreen: () -> Void = {
+      let friendsViewReactor = FriendsViewReactor()
+      let friendsViewController = FriendsViewController(
+        reactor: friendsViewReactor
+      )
+      let messagesViewReactor = MessagesViewReactor()
+      let messagesViewController = MessagesViewController(
+        reactor: messagesViewReactor
+      )
+      let settingsViewReactor = SettingsViewReactor()
+      let settingsViewController = SettingsViewController(
+        reactor: settingsViewReactor
+      )
       let mainTabBarReactor = MainTabBarViewReactor()
       let mainTabBarController = MainTabBarController(
         reactor: mainTabBarReactor,
-        friendsViewController: FriendsViewController(),
-        messagesViewController: MessagesViewController(),
-        settingsViewController: SettingsViewController()
+        friendsViewController: friendsViewController,
+        messagesViewController: messagesViewController,
+        settingsViewController: settingsViewController
       )
-      
       window.rootViewController = mainTabBarController
     }
     

@@ -9,9 +9,20 @@
 import UIKit
 
 final class MessagesViewController: BaseViewController, View {
+  
   // MARK: - Properties
   
   let messagesView = MessagesView()
+  
+  
+  // MARK: - Initialization
+  
+  init(
+    reactor: MessagesViewReactor
+  ) {
+    defer { self.reactor = reactor }
+    super.init()
+  }
   
   
   // MARK: - Life Cycle

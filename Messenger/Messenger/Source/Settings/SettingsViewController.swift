@@ -10,9 +10,21 @@ import UIKit
 import FirebaseAuth
 
 final class SettingsViewController: BaseViewController, View {
+  
   // MARK: - Properties
   
   let settingsView = SettingsView()
+  
+  
+  // MARK: - Initialization
+  
+  init(
+    reactor: SettingsViewReactor
+  ) {
+    defer { self.reactor = reactor }
+    super.init()
+  }
+  
   
   // MARK: - Life Cycle
   

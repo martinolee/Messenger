@@ -9,9 +9,20 @@
 import UIKit
 
 final class FriendsViewController: BaseViewController, View {
+  
   // MARK: - Properties
   
   let friendsView = FriendsView()
+  
+  
+  // MARK: - Initialization
+  
+  init(
+    reactor: FriendsViewReactor
+  ) {
+    defer { self.reactor = reactor }
+    super.init()
+  }
   
   
   // MARK: - Life Cycle
@@ -32,8 +43,6 @@ final class FriendsViewController: BaseViewController, View {
   }
   
   func setUpRootView() {
-    self.reactor = FriendsViewReactor()
-    
     view.addSubview(friendsView)
     friendsView.snp.makeConstraints { $0.edges.equalToSuperview() }
   }
