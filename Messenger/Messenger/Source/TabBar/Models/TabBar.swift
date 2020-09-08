@@ -13,17 +13,6 @@ enum TabBar {
 }
 
 extension TabBar {
-  var viewController: UIViewController {
-    switch self {
-    case .friends:
-      return FriendsViewController()
-    case .messages:
-      return MessagesViewController()
-    case .settings:
-      return SettingsViewController()
-    }
-  }
-  
   var title: String {
     switch self {
     case .friends:
